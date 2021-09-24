@@ -8,13 +8,18 @@
 #include "Cells/Cell.h"
 #include "Cells/ExitCell.h"
 #include "Cells/EnterCell.h"
+#include "random"
+
+unsigned int get_random_int(unsigned int max_int_not_included);
 
 class Field {
+protected:
     const unsigned int rows;
     const unsigned int cols;
     Cell*** cells;
 public:
     Field(unsigned int rows, unsigned int cols);
+
 };
 
 

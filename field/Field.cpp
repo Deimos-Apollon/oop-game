@@ -5,39 +5,48 @@
 #include "Field.h"
 
 Field::Field(unsigned int rows, unsigned int cols): rows(rows), cols(cols){
-    Cell*** tmp_cells = new Cell**[rows];
+    cells = new Cell**[rows];
 
-    for (unsigned int i = 0; i < rows; ++i)
+    if (rows == 1 and cols == 1)
     {
-        tmp_cells[i] = new Cell*[cols];
+        std::cout << "Error";
     }
-    tmp_cells[0][0] = new EnterCell(0, 0);
-    tmp_cells[rows-1][cols-1] = new ExitCell(rows-1, cols-1);
+    else {
+        // init cells
+        for (unsigned int i = 0; i < rows; ++i) {
+            cells[i] = new Cell *[cols];
+            for (unsigned int j = 0; j < cols; ++j) {
+                cells[i][j] = new Cell(i, j);
+            }
+        }
 
-    // init first row cells
-    if (rows != 1) {
-        for (unsigned int j = 1; j < cols; ++j) {
-            tmp_cells[0][j] = new Cell(0, j);
+        // init enter and exit cells coordinates
+        unsigned int x_ent = 0, y_ent = 0, x_exit = 0, y_exit = 0;
+        while (abs(x_ent - x_exit) < (rows + 1) / 2 and
+               abs(y_ent - y_exit) < (cols + 1) / 2) {
+            x_ent = get_random_int(rows);
+            y_ent = get_random_int(cols);
+            x_exit = get_random_int(rows);
+            y_exit = get_random_int(cols);
+        }
+
+        // add exit and enter cells in cells
+        delete cells[x_ent][y_ent];
+        cells[x_ent][y_ent] = new EnterCell(x_ent, y_ent);
+        delete cells[x_exit][y_exit];
+        cells[x_exit][y_exit] = new ExitCell(x_exit, y_exit);
+
+        // TODO delete this
+        for (unsigned int i = 0; i < rows; ++i) {
+            for (unsigned int j = 0; j < cols; ++j) {
+                cells[i][j]->interact();
+            }
+            std::cout << '\n';
         }
     }
-    // init other cells
-    for (unsigned int i = 1; i < rows - 1; ++i) {
-        for (unsigned int j = 0; j < cols; ++j) {
-            tmp_cells[i][j] = new Cell(i, j);
-        }
-    }
-    // init last row cells
-    if (rows != 1) {
-        for (unsigned int j = 0; j < cols - 1; ++j) {
-            tmp_cells[rows - 1][j] = new Cell(rows - 1, j);
-        }
-    }
-    // rows = 1 is another case
-    if (rows == 1)
-    {
-        for (unsigned int j = 1; j < cols - 1; ++j) {
-            tmp_cells[0][j] = new Cell(0, j);
-        }
-    }
-    this->cells = tmp_cells;
+}
+
+unsigned int get_random_int(unsigned int max_int_not_included)
+{
+    return rand() % max_int_not_included;
 }

@@ -5,5 +5,12 @@
 
 int main()
 {
-    Field field(20, 20);
+//    std::cout << "5x1:\n";
+//    Field field(5, 1);
+//    std::cout << "2x1:\n";
+//    Field field2(2, 1);
+//    std::cout << "1x2:\n";
+//    Field field3(1, 2);
+
+    Field field4(10, 20);
 }
