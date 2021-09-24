@@ -2,6 +2,7 @@
 // Created by deimos on 19.09.2021.
 //
 #include "Game.h"
+#include "CLI_Interface/field_interface/FieldView.h"
 
 int main()
 {
@@ -12,5 +13,7 @@ int main()
 //    std::cout << "1x2:\n";
 //    Field field3(1, 2);
 
-    Field field4(10, 20);
+      Field field4(20, 50, 50);
+      FieldView fw(field4);
+      fw.print();
 }

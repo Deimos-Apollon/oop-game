@@ -8,7 +8,8 @@
 
 class Wall : public Cell{
 public:
-    virtual void interact() {};
+    Wall(unsigned x, unsigned y): Cell(x, y, false){};
+    ~Wall() override = default;
 };
 
 

@@ -10,7 +10,6 @@
 class Game {
     Field* field;
 public:
-    Game(){ field = new Field(10, 20); };
 };
 
 

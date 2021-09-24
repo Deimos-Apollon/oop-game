@@ -4,13 +4,16 @@
 
 #ifndef OOP_GAME_INTFIELD_H
 #include "../../field/Field.h"
+#include "../CLI_Printable.h"
 
 #define OOP_GAME_INTFIELD_H
 
 
-class IntField : public Field{
+class FieldView : CLI_Printable{
+    Field& field;
 public:
-    void print();
+    explicit FieldView(Field& field) : field(field) {};
+    void print() override;
 };
 
 

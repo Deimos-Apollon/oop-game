@@ -8,8 +8,8 @@
 
 class ExitCell : public Cell {
 public:
-    ExitCell(unsigned int x, unsigned int y);
-    virtual void interact();
+    ExitCell(unsigned int x, unsigned int y) : Cell(x, y){};
+    ~ExitCell() override = default;
 };
 
 

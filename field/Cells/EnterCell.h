@@ -10,8 +10,8 @@
 
 class EnterCell : public Cell{
 public:
-    EnterCell(unsigned int x, unsigned int y);
-    virtual void interact();
+    EnterCell(unsigned int x, unsigned int y) : Cell(x,y) {};
+    ~EnterCell() override = default;
 };
 
 

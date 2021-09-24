@@ -16,7 +16,7 @@ class Cell {
     // Entity* ent
 public:
     Cell(unsigned int x, unsigned int y, bool is_vacant=true);
-    virtual void interact() { std::cout << "*";};
+    virtual ~Cell() = default;
 };
 
 
