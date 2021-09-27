@@ -4,3 +4,7 @@
 
 #include "ExitCell.h"
 
+Cell *ExitCell::clone() {
+    Cell* tmp = new ExitCell(this->x, this->y);
+    return tmp;
+}

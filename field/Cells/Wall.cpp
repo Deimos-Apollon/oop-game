@@ -3,3 +3,8 @@
 //
 
 #include "Wall.h"
+
+Cell *Wall::clone() {
+    Cell* tmp = new Wall(this->x, this->y);
+    return tmp;
+}

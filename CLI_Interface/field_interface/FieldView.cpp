@@ -17,15 +17,15 @@ void FieldView::print() {
         }
         else if (typeid(*it_cell) == typeid(Wall))
         {
-            std::cout << "x";
+            std::cout << "X";
         }
         else if (typeid(*it_cell) == typeid(ExitCell))
         {
-            std::cout << "s";
+            std::cout << "S";
         }
         else if (typeid(*it_cell) == typeid(EnterCell))
         {
-            std::cout << "e";
+            std::cout << "E";
         }
         if (counter == new_line_border)
         {

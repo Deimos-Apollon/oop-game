@@ -9,8 +9,8 @@
 
 class FieldIterator{
     Field& field;
-    unsigned curr_row = 0;
-    unsigned curr_col = 0;
+    unsigned int curr_row = 0;
+    unsigned int curr_col = 0;
 public:
     explicit FieldIterator(Field& field) : field(field) {};
     Cell *const next();

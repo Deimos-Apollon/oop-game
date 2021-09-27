@@ -9,14 +9,15 @@
 
 
 class Cell {
+protected:
     unsigned int x;
     unsigned int y;
     bool is_vacant;
     Entity* entity;
-    // Entity* ent
 public:
     Cell(unsigned int x, unsigned int y, bool is_vacant=true);
     virtual ~Cell() = default;
+    virtual Cell* clone();
 };
 
 

@@ -20,12 +20,17 @@ private:
     void create_path(unsigned x_ent, unsigned y_ent,
                      unsigned x_exit, unsigned y_exit);
 protected:
-    const unsigned int rows;
-    const unsigned int cols;
-    const unsigned int walls_percentage = 50; // 0 to 90
-    Cell*** cells;
+    unsigned int rows = 0;
+    unsigned int cols = 0;
+    unsigned int walls_percentage = 50; // 0 to 90
+    Cell*** cells = nullptr;
 public:
-    Field(unsigned int rows, unsigned int cols, unsigned  int walls_percentage);
+    Field(unsigned int rows, unsigned int cols, unsigned  int walls_percentage=50);
+    Field(Field& other);
+    Field& operator=(Field& other);
+    Field(Field&& other) noexcept ;
+    Field& operator=(Field&& other) noexcept ;
+    ~Field();
     unsigned int get_rows() const { return rows; }
     unsigned int get_cols() const { return cols; }
     friend FieldIterator;

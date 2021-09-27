@@ -4,3 +4,7 @@
 
 #include "EnterCell.h"
 
+Cell *EnterCell::clone() {
+    Cell* tmp = new EnterCell(this->x, this->y);
+    return tmp;
+}

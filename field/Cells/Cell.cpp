@@ -8,3 +8,8 @@ Cell::Cell(unsigned int x, unsigned int y, bool is_vacant): x(x), y(y), is_vacan
 {
 
 }
+
+Cell* Cell::clone() {
+    Cell* tmp = new Cell(this->x, this->y);
+    return tmp;
+}

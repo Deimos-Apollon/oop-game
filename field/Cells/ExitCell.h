@@ -10,6 +10,7 @@ class ExitCell : public Cell {
 public:
     ExitCell(unsigned int x, unsigned int y) : Cell(x, y){};
     ~ExitCell() override = default;
+    virtual Cell* clone();
 };
 
 
