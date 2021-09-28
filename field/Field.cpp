@@ -185,6 +185,11 @@ Field &Field::operator=(Field &&other)  noexcept {
     }
 }
 
+const Cell *const Field::get_cell(unsigned int x, unsigned int y) {
+    if (x < rows and y < cols) return cells[x][y];
+    else return nullptr;
+}
+
 unsigned int get_random_int(unsigned int min_int_included, unsigned int max_int_included)
 {
     static std::random_device rd;// only used once to initialise (seed) engine

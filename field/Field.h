@@ -33,7 +33,7 @@ public:
     ~Field();
     unsigned int get_rows() const { return rows; }
     unsigned int get_cols() const { return cols; }
-    friend FieldIterator;
+    const Cell* const get_cell(unsigned int x, unsigned int y);
 };
 
 

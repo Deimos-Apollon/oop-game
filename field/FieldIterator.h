@@ -13,7 +13,7 @@ class FieldIterator{
     unsigned int curr_col = 0;
 public:
     explicit FieldIterator(Field& field) : field(field) {};
-    Cell *const next();
+    const Cell *const next();
     bool has_More();
 };
 
