@@ -3,14 +3,16 @@
 //
 #include "Game.h"
 #include "CLI_Interface/field_interface/FieldView.h"
+#include "field/FieldIterator.h"
 
 
 int main() {
     unsigned int rows, cols;
-    std::cout << "Введите rows и cols: ";
+    std::cout << "Enter rows and cols: \n";
     std::cin >> rows >> cols;
     Field field0(rows, cols);
-    FieldView fw0(field0);
+    FieldIterator fi0(field0);
+    FieldView fw0(fi0);
     fw0.print();
 //    std::cout << "5x1:\n";
 //    Field field(5, 1);

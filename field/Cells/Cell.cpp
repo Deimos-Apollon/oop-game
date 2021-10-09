@@ -13,3 +13,7 @@ Cell* Cell::clone() {
     Cell* tmp = new Cell(this->x, this->y);
     return tmp;
 }
+
+unsigned int Cell::getID() const{
+    return 0;
+}

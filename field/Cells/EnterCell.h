@@ -13,6 +13,7 @@ public:
     EnterCell(unsigned int x, unsigned int y) : Cell(x,y) {};
     ~EnterCell() override = default;
     virtual Cell* clone();
+    unsigned int getID() const override;
 };
 
 

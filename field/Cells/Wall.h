@@ -12,6 +12,7 @@ public:
     Wall(unsigned x, unsigned y): Cell(x, y, false){};
     ~Wall() override = default;
     Cell* clone() override;
+    unsigned int getID() const override;
 };
 
 

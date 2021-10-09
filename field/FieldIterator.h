@@ -14,6 +14,8 @@ class FieldIterator{
 public:
     explicit FieldIterator(Field& field) : field(field) {};
     const Cell *const next();
+    const Cell *const operator++();
+    unsigned int get_cols() { return field.get_cols(); }
     bool has_More();
 };
 

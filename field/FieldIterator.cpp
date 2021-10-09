@@ -27,3 +27,7 @@ bool FieldIterator::has_More() {
     return true;
 }
 
+const Cell *const FieldIterator::operator++() {
+    return this->next();
+}
+

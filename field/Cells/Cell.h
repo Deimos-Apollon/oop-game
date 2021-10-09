@@ -18,6 +18,7 @@ public:
     Cell(unsigned int x, unsigned int y, bool is_vacant=true);
     virtual ~Cell() = default;
     virtual Cell* clone();
+    virtual unsigned int getID() const;
 };
 
 

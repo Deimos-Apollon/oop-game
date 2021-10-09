@@ -11,7 +11,7 @@ Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage
     auto cols_with_walls = cols + 2;
     cells = new Cell**[rows_with_walls];
 
-    if (rows == 1 and cols == 1)
+    if (rows == 1 && cols == 1)
     {
         for (unsigned int i = 0; i < rows_with_walls; ++i) {
             cells[i] = new Cell *[cols_with_walls];
@@ -22,7 +22,7 @@ Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage
         delete cells[1][1];
         cells[1][1] = new EnterCell(1,1);
     }
-    else if (rows < 1 or cols < 1)
+    else if (rows < 1 || cols < 1)
     {
         std::cout << "Error, incorrect rows or cols";
     }
@@ -42,10 +42,10 @@ Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage
         }
 
         // init enter and exit cells coordinates
-        unsigned int scalar = (cols != 1 and rows != 1) ? 2 : ((cols == 1) ? rows_with_walls : cols_with_walls);
+        unsigned int scalar = (cols != 1 && rows != 1) ? 2 : ((cols == 1) ? rows_with_walls : cols_with_walls);
         unsigned int x_ent = 1, y_ent = 1, x_exit = 1, y_exit = 1;
-        while (abs(x_ent - x_exit) < (rows_with_walls) / scalar or
-               abs(y_ent - y_exit) < (cols_with_walls) / scalar) {
+        while (fabs(x_ent - x_exit) < (rows_with_walls) / scalar ||
+               fabs(y_ent - y_exit) < (cols_with_walls) / scalar) {
             x_ent = get_random_int(1, rows_with_walls - 2);
             y_ent = get_random_int(1, cols_with_walls - 2);
             x_exit = get_random_int(1, rows_with_walls - 2);
@@ -110,7 +110,7 @@ void Field::create_path(unsigned int x_ent, unsigned int y_ent, unsigned int x_e
             tmp_y += y_exit > tmp_y ? 1 : -1;       // if exit is above enter, move up, else move down
             if (tmp_y == 0) ++tmp_y;
         }
-        if (tmp_x == x_exit and tmp_y == y_exit)
+        if (tmp_x == x_exit && tmp_y == y_exit)
         {
             break;
         }
@@ -183,10 +183,11 @@ Field &Field::operator=(Field &&other)  noexcept {
         std::swap(walls_percentage,other.walls_percentage);
         std::swap(this->cells, other.cells);
     }
+    return *this;
 }
 
 const Cell *const Field::get_cell(unsigned int x, unsigned int y) {
-    if (x < rows and y < cols) return cells[x][y];
+    if (x < rows && y < cols) return cells[x][y];
     else return nullptr;
 }
 

@@ -8,3 +8,7 @@ Cell *Wall::clone() {
     Cell* tmp = new Wall(this->x, this->y);
     return tmp;
 }
+
+unsigned int Wall::getID() const {
+    return 3;
+}

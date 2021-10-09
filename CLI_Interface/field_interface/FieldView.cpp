@@ -9,31 +9,25 @@ void FieldView::print() {
     FieldIterator fi(field);
     auto it_cell = fi.next();
     auto counter = 1;
-    auto new_line_border = field.get_cols();
+    auto new_line_border = fi.get_cols();
+
     while(it_cell != nullptr){
-        if (typeid(*it_cell) == typeid(Cell))
-        {
-            std::cout << " ";
-        }
-        else if (typeid(*it_cell) == typeid(Wall))
-        {
-            std::cout << "X";
-        }
-        else if (typeid(*it_cell) == typeid(ExitCell))
-        {
-            std::cout << "S";
-        }
-        else if (typeid(*it_cell) == typeid(EnterCell))
-        {
-            std::cout << "E";
-        }
+        std::cout << cell_symbols[it_cell->getID()];
         if (counter == new_line_border)
         {
             std::cout << "\n";
             counter = 0;
         }
         ++counter;
-        it_cell = fi.next();
+        it_cell = ++fi;
     }
 
+}
+
+FieldView::FieldView(FieldIterator &field): field(field) {
+    cell_symbols = { {0, ' '},         // Cell
+                     {1, 'E'},         // Exit
+                     {2, 'S'},         // Start
+                     {3, 'X'}          // Wall
+    };
 }

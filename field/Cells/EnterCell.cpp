@@ -8,3 +8,7 @@ Cell *EnterCell::clone() {
     Cell* tmp = new EnterCell(this->x, this->y);
     return tmp;
 }
+
+unsigned int EnterCell::getID() const{
+    return 1;
+}
