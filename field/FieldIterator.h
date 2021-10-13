@@ -3,9 +3,8 @@
 //
 
 #ifndef OOP_GAME_FIELDITERATOR_H
-#define OOP_GAME_FIELDITERATOR_H
-
 #include "Field.h"
+#define OOP_GAME_FIELDITERATOR_H
 
 class FieldIterator{
     Field& field;
@@ -17,6 +16,7 @@ public:
     const Cell *const operator++();
     unsigned int get_cols() { return field.get_cols(); }
     bool has_More();
+    void refresh();
 };
 
 

@@ -3,17 +3,17 @@
 //
 
 #ifndef OOP_GAME_FIELD_H
-#define OOP_GAME_FIELD_H
 
 #include "Cells/Cell.h"
 #include "Cells/ExitCell.h"
 #include "Cells/EnterCell.h"
 #include "Cells/Wall.h"
-#include "random"
+#include <random>
+
+#define OOP_GAME_FIELD_H
+
 
 unsigned int get_random_int(unsigned int min_int, unsigned int max_int);
-
-class FieldIterator;        // declare so we can use is in this file
 
 class Field {
 private:
@@ -22,10 +22,12 @@ private:
 protected:
     unsigned int rows = 0;
     unsigned int cols = 0;
-    unsigned int walls_percentage = 50; // 0 to 90
+    unsigned int walls_percentage = 30; // 0 to 90
     Cell*** cells = nullptr;
+    Cell* enter_cell = nullptr;
+    Cell* exit_cell = nullptr;
 public:
-    Field(unsigned int rows, unsigned int cols, unsigned  int walls_percentage=50);
+    Field(unsigned int rows, unsigned int cols, unsigned  int walls_percentage=50); // TODO delete Player
     Field(Field& other);
     Field& operator=(Field& other);
     Field(Field&& other) noexcept ;
@@ -33,7 +35,11 @@ public:
     ~Field();
     unsigned int get_rows() const { return rows; }
     unsigned int get_cols() const { return cols; }
-    const Cell* const get_cell(unsigned int x, unsigned int y);
+    const Cell* const get_cell(unsigned int row, unsigned int col);
+
+    Cell* get_cell_non_const(unsigned int row, unsigned int col) { return cells[row][col];};
+    Cell* get_enter_cell() { return enter_cell; }
+    Cell* get_exit_cell() { return exit_cell; }
 };
 
 

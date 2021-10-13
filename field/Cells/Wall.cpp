@@ -5,7 +5,7 @@
 #include "Wall.h"
 
 Cell *Wall::clone() {
-    Cell* tmp = new Wall(this->x, this->y);
+    Cell* tmp = new Wall(this->row, this->col);
     return tmp;
 }
 

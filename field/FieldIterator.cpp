@@ -9,8 +9,7 @@ const Cell *const  FieldIterator::next() {
     auto ret_col = curr_col;
     if (curr_row == field.get_rows())         // TODO effective checks
     {
-        curr_row = 0;
-        curr_col = 0;
+        this->refresh();
         return nullptr;
     }
     if (curr_col == field.get_cols() - 1) {
@@ -29,5 +28,9 @@ bool FieldIterator::has_More() {
 
 const Cell *const FieldIterator::operator++() {
     return this->next();
+}
+
+void FieldIterator::refresh() {
+    curr_row = 0; curr_col = 0;
 }
 

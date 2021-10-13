@@ -6,3 +6,7 @@
 #include "../field/Cells/Cell.h"
 
 Cell* cell;
+
+Entity::~Entity() {
+    cell->set_entity(nullptr);
+}

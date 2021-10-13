@@ -5,15 +5,17 @@
 #ifndef OOP_GAME_INTFIELD_H
 #include "../../field/Field.h"
 #include "../CLI_Printable.h"
+#include "../../field/FieldIterator.h"
 
 #define OOP_GAME_INTFIELD_H
 #include <map>
 
 class FieldView : CLI_Printable{
-    FieldIterator& field;
-    std::map <unsigned int, char> cell_symbols;
+protected:
+    FieldIterator& fi;
+    std::map <std::string, char> cell_symbols;
 public:
-    explicit FieldView(FieldIterator& field);
+    explicit FieldView(FieldIterator& fi);
     void print() override;
 };
 

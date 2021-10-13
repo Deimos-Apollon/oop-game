@@ -4,13 +4,13 @@
 
 #include "Cell.h"
 
-Cell::Cell(unsigned int x, unsigned int y, bool is_vacant): x(x), y(y), is_vacant(is_vacant)
+Cell::Cell(unsigned int row, unsigned int col, bool vacant): row(row), col(col), vacant(vacant)
 {
 
 }
 
 Cell* Cell::clone() {
-    Cell* tmp = new Cell(this->x, this->y);
+    Cell* tmp = new Cell(this->row, this->col);
     return tmp;
 }
 

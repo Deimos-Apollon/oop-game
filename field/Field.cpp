@@ -3,14 +3,12 @@
 //
 
 #include "Field.h"
-#include <random>
-
 
 Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage): rows(rows + 2), cols(cols + 2){
     auto rows_with_walls = rows + 2;
     auto cols_with_walls = cols + 2;
     cells = new Cell**[rows_with_walls];
-
+                                                                        // TODO mind using FieldBuilder instead
     if (rows == 1 && cols == 1)
     {
         for (unsigned int i = 0; i < rows_with_walls; ++i) {
@@ -43,20 +41,23 @@ Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage
 
         // init enter and exit cells coordinates
         unsigned int scalar = (cols != 1 && rows != 1) ? 2 : ((cols == 1) ? rows_with_walls : cols_with_walls);
-        unsigned int x_ent = 1, y_ent = 1, x_exit = 1, y_exit = 1;
-        while (fabs(x_ent - x_exit) < (rows_with_walls) / scalar ||
-               fabs(y_ent - y_exit) < (cols_with_walls) / scalar) {
-            x_ent = get_random_int(1, rows_with_walls - 2);
-            y_ent = get_random_int(1, cols_with_walls - 2);
-            x_exit = get_random_int(1, rows_with_walls - 2);
-            y_exit = get_random_int(1, cols_with_walls - 2);
+        unsigned int row_ent = 1, col_ent = 1, row_exit = 1, col_exit = 1;
+        while (abs(int(row_ent - row_exit)) < ((rows_with_walls) / scalar) ||
+               abs(int(col_ent - col_exit)) < ((cols_with_walls) / scalar)) {
+            row_ent = get_random_int(1, rows_with_walls - 2);
+            col_ent = get_random_int(1, cols_with_walls - 2);
+            row_exit = get_random_int(1, rows_with_walls - 2);
+            col_exit = get_random_int(1, cols_with_walls - 2);
         }
 
         // add exit and enter cells in cells
-        delete cells[x_ent][y_ent];
-        cells[x_ent][y_ent] = new EnterCell(x_ent, y_ent);
-        delete cells[x_exit][y_exit];
-        cells[x_exit][y_exit] = new ExitCell(x_exit, y_exit);
+        delete cells[row_ent][col_ent];
+        cells[row_ent][col_ent] = new EnterCell(row_ent, col_ent);
+        enter_cell = cells[row_ent][col_ent];
+
+        delete cells[row_exit][col_exit];
+        cells[row_exit][col_exit] = new ExitCell(row_exit, col_exit);
+        exit_cell = cells[row_exit][col_exit];
 
         // init edge walls
         // up
@@ -81,14 +82,12 @@ Field::Field(unsigned int rows, unsigned int cols, unsigned int walls_percentage
         }
 
         // add one truly existing path
-        this->create_path(x_ent, y_ent, x_exit, y_exit);
+        this->create_path(row_ent, col_ent, row_exit, col_exit);
     }
 }
 
 
 Field::Field(Field &other) : rows(other.rows), cols(other.cols), walls_percentage(other.walls_percentage){
-    // TODO delete this
-    std::cout << "!!!copy constr\n";
     cells = new Cell**[rows];
     for (unsigned int i = 0; i < rows; ++i)
     {
@@ -100,17 +99,17 @@ Field::Field(Field &other) : rows(other.rows), cols(other.cols), walls_percentag
     }
 }
 
-void Field::create_path(unsigned int x_ent, unsigned int y_ent, unsigned int x_exit, unsigned int y_exit) {
-    auto tmp_x = x_ent, tmp_y = y_ent;
+void Field::create_path(unsigned int row_ent, unsigned int col_ent, unsigned int row_exit, unsigned int col_exit) {
+    auto tmp_x = row_ent, tmp_y = col_ent;
     while(true){
         if (get_random_int(1, 2) == 1){
-            tmp_x += x_exit > tmp_x ? 1 : -1;       // if exit is left from enter, move left, otherwise right
+            tmp_x += row_exit > tmp_x ? 1 : -1;       // if exit is left from enter, move left, otherwise right
             if (tmp_x == 0) ++tmp_x;
         } else {
-            tmp_y += y_exit > tmp_y ? 1 : -1;       // if exit is above enter, move up, else move down
+            tmp_y += col_exit > tmp_y ? 1 : -1;       // if exit is above enter, move up, else move down
             if (tmp_y == 0) ++tmp_y;
         }
-        if (tmp_x == x_exit && tmp_y == y_exit)
+        if (tmp_x == row_exit && tmp_y == col_exit)
         {
             break;
         }
@@ -123,7 +122,6 @@ void Field::create_path(unsigned int x_ent, unsigned int y_ent, unsigned int x_e
 }
 
 Field::~Field() {
-    //std::cout << "destructor\n";
     for (unsigned int i = 0; i < rows; ++i)
     {
         for (unsigned int j = 0; j < cols; ++j)
@@ -137,7 +135,6 @@ Field::~Field() {
 }
 
 Field &Field::operator=(Field &other) {
-    std::cout << "!!!copy operator\n";
     if (this != &other)
     {
         // free memory
@@ -167,7 +164,6 @@ Field &Field::operator=(Field &other) {
 }
 
 Field::Field(Field &&other)  noexcept {
-    std::cout << "!!!move constructor\n";
     std::swap(rows, other.rows);
     std::swap(cols, other.cols);
     std::swap(walls_percentage,other.walls_percentage);
@@ -175,7 +171,6 @@ Field::Field(Field &&other)  noexcept {
 }
 
 Field &Field::operator=(Field &&other)  noexcept {
-    std::cout << "!!!move operator\n";
     if (this != &other)
     {
         std::swap(rows, other.rows);
@@ -186,10 +181,11 @@ Field &Field::operator=(Field &&other)  noexcept {
     return *this;
 }
 
-const Cell *const Field::get_cell(unsigned int x, unsigned int y) {
-    if (x < rows && y < cols) return cells[x][y];
+const Cell *const Field::get_cell(unsigned int row, unsigned int col) {
+    if (row < rows && col < cols) return cells[row][col];
     else return nullptr;
 }
+
 
 unsigned int get_random_int(unsigned int min_int_included, unsigned int max_int_included)
 {
