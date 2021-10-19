@@ -4,10 +4,6 @@
 
 #include "Axe.h"
 
-Axe::Axe(unsigned int range, unsigned int damage) : MeleeDamageItem(range, damage){
-
-}
-
-Axe::Axe(Cell *cell, unsigned int range, unsigned int damage) : MeleeDamageItem(cell, range, damage) {
+Axe::Axe(unsigned int range, unsigned int damage, unsigned int usages) : MeleeDamageItem(range, damage, usages){
 
 }

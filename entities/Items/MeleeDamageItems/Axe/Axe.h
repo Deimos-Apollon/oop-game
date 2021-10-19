@@ -1,6 +1,6 @@
 //
 // Created by Deimos on 13.10.2021.
-//
+//ё
 
 #ifndef OOP_GAME_AXE_H
 
@@ -11,8 +11,7 @@
 
 class Axe : public MeleeDamageItem{
 public:
-    Axe(unsigned int range, unsigned int damage);
-    Axe(Cell* cell, unsigned int range, unsigned int damage);
+    explicit Axe(unsigned int range=1, unsigned int damage=10, unsigned int usages=50);
 };
 
 

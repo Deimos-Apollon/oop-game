@@ -4,21 +4,17 @@
 
 #ifndef OOP_GAME_ENEMY_H
 
-#include "../../Creature.h"
-#include "../../Player/Player.h"
+#include "../../Creature/Creature.h"
 
-
+#define STEP_COOLDOWN 5
 #define OOP_GAME_ENEMY_H
 
-class AIStrategy;
 
 class Enemy : public Creature {
-    AIStrategy* strategy = nullptr;
+    unsigned short step_cooldown = STEP_COOLDOWN;
 public:
-    Enemy(Field *field = nullptr, Cell *cell = nullptr, unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0);
-    Enemy(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0);
-    void set_strategy(AIStrategy* new_strategy) { strategy = new_strategy; }
-    AIStrategy* get_strategy() { return strategy; }
+    Enemy(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0, unsigned int attack_range = 1);
+    bool try_do_step();
 };
 
 

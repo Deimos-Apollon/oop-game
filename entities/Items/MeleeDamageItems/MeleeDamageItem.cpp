@@ -4,15 +4,11 @@
 
 #include "MeleeDamageItem.h"
 
-MeleeDamageItem::MeleeDamageItem(unsigned int range, unsigned int damage) :
-        Item(), range(range), damage(damage){
+MeleeDamageItem::MeleeDamageItem(unsigned int range, unsigned int damage, unsigned int usages) :
+        Item(range, usages), damage(damage){
 
 }
 
-MeleeDamageItem::MeleeDamageItem(Cell *cell, unsigned int range, unsigned int damage) :
-        Item(cell), range(range), damage(damage){
-
-}
 
 void MeleeDamageItem::interact(Creature *creature) {
     this->attack(creature);

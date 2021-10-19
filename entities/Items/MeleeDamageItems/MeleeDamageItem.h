@@ -3,18 +3,17 @@
 //
 
 #ifndef OOP_GAME_MELEEDAMAGEITEM_H
-#include "../Item.h"
+#include "../Item/Item.h"
 #define OOP_GAME_MELEEDAMAGEITEM_H
 
 
 class MeleeDamageItem : public Item {
-    unsigned int range;
     unsigned int damage;
     void attack(Creature *creature) override;
 public:
-    MeleeDamageItem(unsigned int range, unsigned int damage);
-    MeleeDamageItem(Cell* cell, unsigned int range, unsigned int damage);
+    MeleeDamageItem(unsigned int range, unsigned int damage, unsigned int usages);
     void interact(Creature *creature) override;
+    bool is_damaging() override { return true; }
 };
 
 

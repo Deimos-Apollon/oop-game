@@ -1,13 +1,7 @@
 //
 // Created by deimos on 19.09.2021.
 //
-#include "Game/Game.h"
-#include "CLI_Interface/field_interface/FieldView.h"
-#include "field/FieldIterator.h"
-#include "entities/Creatures/Player/Player.h"
-#include "CLI_Interface/level_interface/LevelView.h"
-#include "Level/Level.h"
-
+#include "Game/Game/Game.h"
 
 int main() {
 //    unsigned int rows, cols;
