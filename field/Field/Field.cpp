@@ -6,9 +6,10 @@
 #include "../../CLI_Interface/CLI_Field/FieldView.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/MeleeSkeletonAgressiveStrategy/MeleeSkeletonAgressiveStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ArcherSkeletonStrategy/ArcherSkeletonStrategy.h"
-#include "../../entities/Creatures/Enemies/ArcherSkeleton/ArcherSkeleton.h"
+#include "../../entities/Creatures/Enemies/AIStrategy/MageHealerStrategy/MageHealerStrategy.h"
 
-#include <utility>
+
+
 
 
 Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, map<Enemy *, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
@@ -17,10 +18,6 @@ Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, ma
              player(player), player_coords(player_coords), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
              cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2)
 {
-    strategies =  { {"ApproachStrategy", new ApproachStrategy},
-                    {"MeleeSkeletonAgressiveStrategy", new MeleeSkeletonAgressiveStrategy},
-                    {"ArcherSkeletonStrategy", new ArcherSkeletonStrategy}
-                    };
     player_controller = new PlayerController(this, player);               // TODO  delete
 }
 
@@ -97,6 +94,7 @@ Field &Field::operator=(Field &&other)  noexcept {
 
 void Field::start() {
     // TODO HELLO MSG
+    strategies_manager.enemies_set_strategies(enemies);
     this->proceed();
 }
 
@@ -106,7 +104,6 @@ void Field::finish() {
 void Field::proceed() {
     FieldIterator fi(*this);
     FieldView lv(fi);
-    enemies_set_strategies();
     while(true)
     {
         lv.print();
@@ -124,12 +121,12 @@ void Field::proceed() {
         {
             cells[enemies[enemy].first][enemies[enemy].second]->set_creature(nullptr);
             enemies.erase(enemy);
-            enemy_strategies.erase(enemy);
+            strategies_manager.enemy_remove(enemy);
         }
         for (auto enemy_pair: enemies)
         {
             auto enemy = enemy_pair.first;
-            enemy_strategies[enemy]->step(this, enemy, player);
+            strategies_manager.step(this, enemy, player);
             std::cout << "Enemy hp: " << enemy->get_curr_hp() << '\n';
         }
         if (player->get_curr_hp() == 0)
@@ -209,10 +206,6 @@ pair<int, int> Field::calculate_differ_in_distance_with_player(Enemy *enemy) {
     return { int(enemies[enemy].first) - int(player_coords.first),  int(enemies[enemy].second) - int(player_coords.second) };
 }
 
-void Field::enemy_set_strategy(Enemy *enemy, AIStrategy *strategy) {
-    enemy_strategies[enemy] = strategy;
-}
-
 void Field::player_attack_nearest_enemy() {
     auto min = 0;
     Enemy* min_enemy = nullptr;
@@ -235,14 +228,21 @@ void Field::player_attack_nearest_enemy() {
     }
 }
 
-void Field::enemies_set_strategies() {
-    map <std::string, std::string> setting_strategies = {
-            {typeid(MeleeSkeleton).name(), "MeleeSkeletonAgressiveStrategy"},
-            {typeid(ArcherSkeleton).name(), "ArcherSkeletonStrategy"},
-    };
+
+void Field::wounded_enemy_restore_health(unsigned int health) {
+    auto min = -1;
+    Enemy* min_enemy = nullptr;
     for (auto enemy_pair: enemies)
     {
         auto enemy = enemy_pair.first;
-        enemy_set_strategy(enemy, strategies[setting_strategies[typeid(*enemy).name()]]);
+        if ((min == -1 || enemy->get_curr_hp() < min) && enemy->get_curr_hp() != 0 )
+        {
+            min = enemy->get_curr_hp();
+            min_enemy = enemy;
+        }
+    }
+    if (min_enemy != nullptr)
+    {
+        min_enemy->restore_health(health);
     }
 }

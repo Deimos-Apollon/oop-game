@@ -4,7 +4,7 @@
 
 #ifndef OOP_GAME_MELEESKELETON_H
 
-#include "../Enemy/Enemy.h"
+#include "../../Enemy/Enemy.h"
 
 #define OOP_GAME_MELEESKELETON_H
 

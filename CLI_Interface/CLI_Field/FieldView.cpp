@@ -33,8 +33,9 @@ FieldView::FieldView(FieldIterator &fi): fi(fi) {
     entities_symbols = {{typeid(Player).name(),          'P'},         // Player
                         {typeid(MeleeSkeleton).name(),   '1'},         // Enemy
                         {typeid(ArcherSkeleton).name(),  '2'},
+                        {typeid(MageHealer).name(),      '3'},
                         {typeid(Axe).name(),             'A'},          // Axe
                         {typeid(RestorationWand).name(), 'R'},
-
+                        {typeid(Bow).name(),             'B'},
     };
 }

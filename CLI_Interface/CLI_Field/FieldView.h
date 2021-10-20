@@ -6,14 +6,18 @@
 #include "../../field/Field/Field.h"
 #include "../CLI_Printable/CLI_Printable.h"
 #include "../../field/FieldIterator/FieldIterator.h"
-#include "../../entities/Creatures/Enemies/Enemy/Enemy.h"
-#include "../../entities/Items/MeleeDamageItems/Axe/Axe.h"
-#include "../../entities/Creatures/Enemies/MeleeSkeleton/MeleeSkeleton.h"
-#include "../../entities/Items/HealItems/RestorationWand.h"
-#include "../../entities/Creatures/Enemies/ArcherSkeleton/ArcherSkeleton.h"
 
-#define OOP_GAME_INTFIELD_H
+#include "../../entities/Creatures/Enemies/Enemy/Enemy.h"
+#include "../../entities/Creatures/Enemies/Enemies_types/MeleeSkeleton/MeleeSkeleton.h"
+#include "../../entities/Creatures/Enemies/Enemies_types/ArcherSkeleton/ArcherSkeleton.h"
+#include "../../entities/Creatures/Enemies/Enemies_types/MageHealer/MageHealer.h"
+
+#include "../../entities/Items/MeleeDamageItems/Axe/Axe.h"
+#include "../../entities/Items/HealItems/RestorationWand.h"
+#include "../../entities/Items/Bow/Bow.h"
+
 #include <map>
+#define OOP_GAME_INTFIELD_H
 
 class FieldView : CLI_Printable{
 protected:

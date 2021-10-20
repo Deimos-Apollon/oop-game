@@ -5,6 +5,7 @@
 #include "FieldBuilder.h"
 
 
+
 void FieldBuilder::create_path(unsigned int row_ent, unsigned int col_ent, unsigned int row_exit, unsigned int col_exit) {
     auto tmp_x = row_ent, tmp_y = col_ent;
     while(true){
@@ -167,6 +168,13 @@ void FieldBuilder::add_item(Item *item, unsigned int row, unsigned int col) {
     items[item] = pair<unsigned int, unsigned int>(row, col);
 }
 
+void FieldBuilder::add_player(Player *player) {
+    this->player = player;
+    enter_cell->set_creature(this->player);
+    enter_cell->set_is_vacant(false);
+    player_coords = {enter_cell->get_row(), enter_cell->get_col()};
+}
+
 void FieldBuilder::add_enemy_MeleeSkeleton(unsigned int row, unsigned int col) {
     add_enemy(new MeleeSkeleton(), row, col);
 }
@@ -175,11 +183,8 @@ void FieldBuilder::add_enemy_ArcherSkeleton(unsigned int row, unsigned int col) 
     add_enemy(new ArcherSkeleton(), row, col);
 }
 
-void FieldBuilder::add_player(Player *player) {
-    this->player = player;
-    enter_cell->set_creature(this->player);
-    enter_cell->set_is_vacant(false);
-    player_coords = {enter_cell->get_row(), enter_cell->get_col()};
+void FieldBuilder::add_enemy_MageHealer(unsigned int row, unsigned int col) {
+    add_enemy(new MageHealer(), row, col);
 }
 
 void FieldBuilder::add_Axe(unsigned int row, unsigned int col) {
@@ -189,6 +194,11 @@ void FieldBuilder::add_Axe(unsigned int row, unsigned int col) {
 void FieldBuilder::add_RestorationWand(unsigned int row, unsigned int col) {
     add_item(new RestorationWand(), row, col);
 }
+
+void FieldBuilder::add_Bow(unsigned int row, unsigned int col) {
+    add_item(new Bow(), row, col);
+}
+
 Field *FieldBuilder::get_result() {
     Field* field = nullptr;
     if (player != nullptr && cells != nullptr) {
@@ -210,3 +220,4 @@ void FieldBuilder::clear() {
     items = {};
     enemies_num = 0;
 }
+

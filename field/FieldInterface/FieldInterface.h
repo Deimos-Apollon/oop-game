@@ -16,6 +16,7 @@ public:
     virtual pair<int,int> calculate_differ_in_distance_with_player(Enemy* enemy) { return {0,0}; };
     virtual void player_attack_nearest_enemy() {};
     virtual void start() {};
+    virtual void wounded_enemy_restore_health(unsigned int health) {};
 };
 
 

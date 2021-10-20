@@ -4,10 +4,13 @@
 
 #ifndef OOP_GAME_FIELDBUILDER_H
 #include "../Field/Field.h"
-#include "../../entities/Creatures/Enemies/MeleeSkeleton/MeleeSkeleton.h"
-#include "../../entities/Creatures/Enemies/ArcherSkeleton/ArcherSkeleton.h"
 
 #include "../../entities/Items/HealItems/RestorationWand.h"
+#include "../../entities/Items/Bow/Bow.h"
+
+#include "../../entities/Creatures/Enemies/Enemies_types/MeleeSkeleton/MeleeSkeleton.h"
+#include "../../entities/Creatures/Enemies/Enemies_types/ArcherSkeleton/ArcherSkeleton.h"
+#include "../../entities/Creatures/Enemies/Enemies_types/MageHealer/MageHealer.h"
 
 #define OOP_GAME_FIELDBUILDER_H
 
@@ -48,9 +51,11 @@ public:
 
     void add_enemy_MeleeSkeleton(unsigned int row = 0, unsigned int col = 0);
     void add_enemy_ArcherSkeleton(unsigned int row = 0, unsigned int col = 0);
+    void add_enemy_MageHealer(unsigned int row = 0, unsigned int col = 0);
 
     void add_Axe(unsigned int row = 0, unsigned int col = 0);
     void add_RestorationWand(unsigned int row = 0, unsigned int col = 0);
+    void add_Bow(unsigned int row = 0, unsigned int col = 0);
 
     Field* get_result();
 

@@ -17,10 +17,11 @@
 #include "../../entities/Creatures/Enemies/Enemy/Enemy.h"
 #include "../FieldInterface/FieldInterface.h"
 
-
+#include "../../entities/Creatures/Enemies/AIStrategy/StrategiesManager/StrategiesManager.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/AIStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ApproachStrategy/ApproachStrategy.h"
 #include "../../entities/Creatures/Player/PlayerController/PlayerController.h"
+
 
 #define OOP_GAME_FIELD_H
 
@@ -43,10 +44,9 @@ protected:
 
     map <Enemy*, pair<unsigned int, unsigned int>> enemies = {};
     map <Item*, pair<unsigned int, unsigned int>> items = {};
-    map <string, AIStrategy*> strategies;
-    map <Enemy*, AIStrategy*> enemy_strategies;
-
     unsigned int enemies_num = 0;
+
+    StrategiesManager strategies_manager;
 
     void proceed();
     void finish();
@@ -69,10 +69,11 @@ public:
 
     void move_player(Player* player,  int drow,  int dcol) override;
     void move_enemy(Enemy* enemy,  int drow,  int dcol) override;
+
     void player_attack_nearest_enemy() override;
 
-    void enemy_set_strategy(Enemy* enemy, AIStrategy* strategy);
-    void enemies_set_strategies();
+    void wounded_enemy_restore_health(unsigned int health) override;
+
     int calculate_distance_from_player(Enemy* enemy);
     pair<int,int> calculate_differ_in_distance_with_player(Enemy* enemy) override;
 };

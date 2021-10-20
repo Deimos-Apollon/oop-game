@@ -5,7 +5,7 @@
 #ifndef OOP_GAME_ARCHERSKELETON_H
 #define OOP_GAME_ARCHERSKELETON_H
 
-#include "../Enemy/Enemy.h"
+#include "../../Enemy/Enemy.h"
 
 class ArcherSkeleton : public Enemy {
 public:
