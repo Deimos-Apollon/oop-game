@@ -11,7 +11,7 @@
 
 class FieldInterface {
 public:
-    virtual void move_player(Player* player,  int drow,  int dcol) {};
+    virtual void move_player(int drow,  int dcol) {};
     virtual void move_enemy(Enemy* enemy,  int drow,  int dcol) {};
     virtual pair<int,int> calculate_differ_in_distance_with_player(Enemy* enemy) { return {0,0}; };
     virtual void player_attack_nearest_enemy() {};

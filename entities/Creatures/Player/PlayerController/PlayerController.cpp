@@ -18,19 +18,19 @@ void PlayerController::check_for_input() {
         {
             // left
             case KEY_LEFT:
-                field->move_player(player, 0, -1);
+                field->move_player(0, -1);
                 break;
             // right
             case KEY_RIGHT:
-                field->move_player(player, 0, 1);
+                field->move_player(0, 1);
                 break;
             // up
             case KEY_UP:
-                field->move_player(player, -1, 0);
+                field->move_player( -1, 0);
                 break;
             // down
             case KEY_DOWN:
-                field->move_player(player, 1, 0);
+                field->move_player(1, 0);
                 break;
             // spacebar
             case 32:

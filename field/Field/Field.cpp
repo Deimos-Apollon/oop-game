@@ -18,7 +18,7 @@ Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, ma
              player(player), player_coords(player_coords), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
              cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2)
 {
-    player_controller = new PlayerController(this, player);               // TODO  delete
+    player_controller = new PlayerController(this, player);
 }
 
 Field::Field(Field &other) : rows(other.rows), cols(other.cols){
@@ -34,6 +34,7 @@ Field::Field(Field &other) : rows(other.rows), cols(other.cols){
 }
 
 Field::~Field() {
+    // delete cells
     for (unsigned int i = 0; i < rows; ++i)
     {
         for (unsigned int j = 0; j < cols; ++j)
@@ -44,6 +45,25 @@ Field::~Field() {
     }
     delete [] cells;
     cells = nullptr;
+    enter_cell = nullptr;
+    exit_cell = nullptr;
+
+    //delete enemies if exists
+    for (auto enemy_pair: enemies)
+    {
+        delete enemy_pair.first;
+    }
+    enemies = {};
+
+    // delete items
+    for (auto item_pair: items)
+    {
+        delete item_pair.first;
+    }
+    items = {};
+
+    delete player_controller;
+    player_controller = nullptr;
 }
 
 Field &Field::operator=(Field &other) {
@@ -150,7 +170,7 @@ const Cell *const Field::get_cell(unsigned int row, unsigned int col) {
     else return nullptr;
 }
 
-void Field::move_player(Player* player, int drow, int dcol) {
+void Field::move_player( int drow, int dcol) {
     auto p_row = player_coords.first, p_col = player_coords.second;
     p_row += drow;
     p_col += dcol;

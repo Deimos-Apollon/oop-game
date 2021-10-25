@@ -43,3 +43,11 @@ void Player::change_using_item() {
     }
 }
 
+Player::~Player() {
+    for (auto item: items)
+    {
+        delete item;
+    }
+    items = {};
+}
+

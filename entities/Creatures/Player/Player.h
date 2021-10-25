@@ -18,7 +18,7 @@ class Player : public Creature {
     bool using_item = false;
 public:
     Player(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0);
-    ~Player() override = default;
+    ~Player() override;
 
     void use_item(Creature* creature,  int drow,  int dcol);
     void change_using_item();

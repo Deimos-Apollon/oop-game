@@ -64,3 +64,15 @@ void Game::start() {
     }
     this->proceed();
 }
+
+Game::~Game() {
+    for (size_t i = 0; i < fields_num; ++i)
+    {
+        delete fields[i];
+    }
+    delete [] fields;
+    fields = nullptr;
+
+    delete player;
+    player = nullptr;
+}

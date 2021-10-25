@@ -13,6 +13,7 @@
 
 class Game : GameInterface{                         // Ask how to create multiple levels (mind using LevelBuilder)
     Player* player = nullptr;
+
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 protected:
@@ -20,6 +21,7 @@ protected:
     void finish() override;
 public:
     Game() = default;
+    ~Game();
     Game(Player* player, FieldInterface** fields, unsigned int fields_num);
     void start() override;
 };

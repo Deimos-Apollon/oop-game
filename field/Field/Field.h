@@ -67,7 +67,7 @@ public:
     unsigned int get_cols() const { return cols; }
     const Cell* const get_cell(unsigned int row, unsigned int col);
 
-    void move_player(Player* player,  int drow,  int dcol) override;
+    void move_player(int drow,  int dcol) override;
     void move_enemy(Enemy* enemy,  int drow,  int dcol) override;
 
     void player_attack_nearest_enemy() override;
