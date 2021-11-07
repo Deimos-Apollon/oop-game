@@ -14,14 +14,14 @@
 
 Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, map<Enemy *, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
              map<Item *, pair<unsigned int, unsigned int>> items, Cell ***cells, Cell *enter_cell, Cell *exit_cell,
-             unsigned int rows, unsigned int cols):
+             unsigned int rows, unsigned int cols, Logger& logger):
              player(player), player_coords(player_coords), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
-             cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2)
+             cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2), logger(logger)
 {
     player_controller = new PlayerController(this, player);
 }
 
-Field::Field(Field &other) : rows(other.rows), cols(other.cols){
+Field::Field(Field &other, Logger& logger) : rows(other.rows), cols(other.cols), logger(other.logger){
     cells = new Cell**[rows];
     for (unsigned int i = 0; i < rows; ++i)
     {
@@ -95,7 +95,7 @@ Field &Field::operator=(Field &other) {
     return *this;
 }
 
-Field::Field(Field &&other)  noexcept {
+Field::Field(Field &&other) noexcept: logger(other.logger) {
     std::swap(rows, other.rows);
     std::swap(cols, other.cols);
     std::swap(this->cells, other.cells);
@@ -160,7 +160,7 @@ void Field::proceed() {
             break;
         }
         std::cout << "Your hp: " << player->get_curr_hp() << '\n';
-        _sleep(100);
+        //_sleep(100);
         system("cls");
     }
 }

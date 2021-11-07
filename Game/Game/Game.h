@@ -8,14 +8,17 @@
 #include "../GameIntreface/GameInterface.h"
 
 #include "../../field/FieldBuilder/FieldBuilder.h"
+#include "../../ClassesHelpers/Logger/Logger.h"
+
 #define OOP_GAME_GAME_H
 
 
 class Game : GameInterface{                         // Ask how to create multiple levels (mind using LevelBuilder)
     Player* player = nullptr;
-
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
+
+    Logger logger;
 protected:
     void proceed() override;
     void finish() override;

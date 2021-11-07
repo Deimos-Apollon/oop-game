@@ -24,6 +24,8 @@ public:
     unsigned int get_attack_range() const { return attack_range; };
     unsigned int get_curr_hp() const { return curr_hp; }
     unsigned int get_max_hp() const { return max_hp; }
+    unsigned int get_armor() const { return armor; }
+    unsigned int get_basic_attack_damage() const { return base_attack_damage; }
 
     virtual void attack(Creature* other_creature, int drow, int dcol);
     virtual void get_damage(unsigned int damage);

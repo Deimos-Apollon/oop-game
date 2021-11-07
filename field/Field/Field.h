@@ -21,6 +21,7 @@
 #include "../../entities/Creatures/Enemies/AIStrategy/AIStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ApproachStrategy/ApproachStrategy.h"
 #include "../../entities/Creatures/Player/PlayerController/PlayerController.h"
+#include "../../ClassesHelpers/Logger/Logger.h"
 
 
 #define OOP_GAME_FIELD_H
@@ -47,15 +48,16 @@ protected:
     unsigned int enemies_num = 0;
 
     StrategiesManager strategies_manager;
+    Logger& logger;
 
     void proceed();
     void finish();
 public:
     Field(Player* player, pair <unsigned int, unsigned int> player_coords, map <Enemy*, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
           map <Item*, pair<unsigned int, unsigned int>> items, Cell*** cells, Cell* enter_cell, Cell* exit_cell,
-          unsigned int rows, unsigned int cols);
+          unsigned int rows, unsigned int cols, Logger& logger);
 
-    Field(Field& other);                            // TODO CHANGE
+    Field(Field& other, Logger& logger);                            // TODO CHANGE
     Field& operator=(Field& other);
     Field(Field&& other) noexcept ;
     Field& operator=(Field&& other) noexcept ;

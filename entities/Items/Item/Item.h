@@ -19,7 +19,9 @@ public:
     explicit Item(unsigned int range, unsigned int usages) : range(range), usages(usages) {};
     virtual void interact(Creature* creature) {};
     virtual bool is_damaging() { return false; };
+
     unsigned int get_range() { return range; }
+    unsigned int get_usages() { return usages; }
 };
 
 
