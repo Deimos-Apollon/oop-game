@@ -115,54 +115,64 @@ Field &Field::operator=(Field &&other)  noexcept {
 void Field::start() {
     // TODO HELLO MSG
     strategies_manager.enemies_set_strategies(enemies);
-    this->proceed();
+
+    for (auto item: items)
+    {
+        logger.add_subscriber(item.first);
+    }                                           // TODO delete
+    unsigned i = 0;
+    for (auto enemy: enemies)
+    {
+        if (i == 2) break;
+        logger.add_subscriber(enemy.first);     // TODO delete
+        ++i;
+    }
 }
 
 void Field::finish() {
 }
 
-void Field::proceed() {
-    FieldIterator fi(*this);
-    FieldView lv(fi);
-    while(true)
+bool Field::proceed() {
+
+    logger.print_console(player);
+    logger.print_console(&player->get_item());
+    logger.proceed_subscribers();
+
+    player_controller->check_for_input();
+    vector <Enemy*> enemies_erase = {};
+
+    for (auto enemy_pair: enemies)
     {
-        lv.print();
-        player_controller->check_for_input();
-        vector <Enemy*> enemies_erase = {};
-        for (auto enemy_pair: enemies)
+        auto enemy = enemy_pair.first;
+        if (enemy->get_curr_hp() == 0)
         {
-            auto enemy = enemy_pair.first;
-            if (enemy->get_curr_hp() == 0)
-            {
-                enemies_erase.push_back(enemy);
-            }
+            enemies_erase.push_back(enemy);
         }
-        for (auto enemy: enemies_erase)
-        {
-            cells[enemies[enemy].first][enemies[enemy].second]->set_creature(nullptr);
-            enemies.erase(enemy);
-            strategies_manager.enemy_remove(enemy);
-        }
-        for (auto enemy_pair: enemies)
-        {
-            auto enemy = enemy_pair.first;
-            strategies_manager.step(this, enemy, player);
-            std::cout << "Enemy hp: " << enemy->get_curr_hp() << '\n';
-        }
-        if (player->get_curr_hp() == 0)
-        {
-            this->finish();
-            break;
-        }
-        if (cells[player_coords.first][player_coords.second] == exit_cell)
-        {
-            this->finish();
-            break;
-        }
-        std::cout << "Your hp: " << player->get_curr_hp() << '\n';
-        //_sleep(100);
-        system("cls");
     }
+    for (auto enemy: enemies_erase)
+    {
+        delete_enemy(enemy);
+    }
+    for (auto enemy_pair: enemies)
+    {
+        auto enemy = enemy_pair.first;
+        strategies_manager.step(this, enemy, player);
+        std::cout << "Enemy hp: " << enemy->get_curr_hp() << '\n';
+    }
+    if (player->get_curr_hp() == 0)
+    {
+        this->finish();
+        return false;
+    }
+    if (cells[player_coords.first][player_coords.second] == exit_cell)
+    {
+        this->finish();
+        return false;
+    }
+
+    _sleep(100);
+    return true;
+
 }
 
 const Cell *const Field::get_cell(unsigned int row, unsigned int col) {
@@ -265,4 +275,12 @@ void Field::wounded_enemy_restore_health(unsigned int health) {
     {
         min_enemy->restore_health(health);
     }
+}
+
+void Field::delete_enemy(Enemy *enemy) {
+    cells[enemies[enemy].first][enemies[enemy].second]->set_creature(nullptr);
+    enemies.erase(enemy);
+    strategies_manager.enemy_remove(enemy);
+
+    // TODO logger.delete enemy
 }

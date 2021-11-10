@@ -30,6 +30,7 @@ class FieldBuilder {
     map <Item*, pair<unsigned int, unsigned int>> items = {};
     unsigned int enemies_num = 0;
 
+    Logger& logger;
     Randomer randomer;
 private:
     void create_path(unsigned x_ent, unsigned y_ent,
@@ -45,6 +46,8 @@ private:
 
     void clear();
 public:
+    explicit FieldBuilder(Logger& logger);
+
     void create_cells(unsigned int rows, unsigned int cols, unsigned  int walls_percentage = 30);
 
     void add_player(Player* player);
@@ -58,7 +61,6 @@ public:
     void add_Bow(unsigned int row = 0, unsigned int col = 0);
 
     Field* get_result();
-
 };
 
 

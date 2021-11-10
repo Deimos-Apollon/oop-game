@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-
+#include "../../CLI_Interface/CLI_Field/FieldView.h"
 
 
 Game::Game(Player *player, FieldInterface **fields, unsigned int fields_num) :
@@ -13,10 +13,23 @@ Game::Game(Player *player, FieldInterface **fields, unsigned int fields_num) :
 
 void Game::proceed() {
     FieldInterface* curr_level;
+
     for (unsigned int i = 0; i < fields_num; ++i)
     {
         curr_level = fields[i];
+
+        FieldIterator fi(*dynamic_cast<Field *>(curr_level));
+        FieldView lv(fi);
+
         curr_level->start();
+        bool level_go;
+
+        do
+        {
+            lv.print();
+            level_go = curr_level->proceed();
+            system("cls");
+        } while (level_go);
     }
 }
 
@@ -25,15 +38,20 @@ void Game::finish() {
 }
 
 void Game::start() {
+    logger.set_logging_to_console();
+
+    logger.set_logging_to_file(R"(C:\Users\Deimos\CLionProjects\oop-game\LOG_FILES\Logs_file.txt)");
+
     if (player == nullptr)
     {
         player = new Player(50,2,5);
+        logger.add_subscriber(player);
     }
     if (fields == nullptr)  // TODO delete, this is just demonstration
     {
         fields = new FieldInterface*[2];
 
-        FieldBuilder fb;
+        FieldBuilder fb(logger);
         fb.create_cells(8, 8);
         fb.add_player(player);
         fb.add_RestorationWand();

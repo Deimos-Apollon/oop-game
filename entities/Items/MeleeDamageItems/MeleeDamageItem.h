@@ -13,7 +13,7 @@ class MeleeDamageItem : public Item {
 public:
     MeleeDamageItem(unsigned int range, unsigned int damage, unsigned int usages);
     void interact(Creature *creature) override;
-    bool is_damaging() override { return true; }
+    bool is_damaging() const  override { return true; }
 };
 
 

@@ -15,7 +15,7 @@ class RestorationWand : public Item {
 public:
     RestorationWand(unsigned int heal_power = HEAL_POWER, unsigned int usages = 5);
     void interact(Creature *creature) override;
-    bool is_damaging() override { return false; }
+    bool is_damaging() const override { return false; }
 };
 
 

@@ -8,12 +8,15 @@ void Bow::attack(Creature *creature) {
     creature->get_damage(damage);
 }
 
-bool Bow::is_damaging() {
+bool Bow::is_damaging() const {
     return true;
 }
 
 void Bow::interact(Creature *creature) {
-    this->attack(creature);
+    if (usages != 0) {
+        --usages;
+        this->attack(creature);
+    }
 }
 
 Bow::Bow(unsigned int range, unsigned int damage, unsigned int usages) :

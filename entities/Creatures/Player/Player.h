@@ -20,7 +20,8 @@ public:
     Player(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0);
     ~Player() override;
 
-    bool get_using_item() { return using_item; };
+    bool get_using_item() const { return using_item; };
+    const Item& get_item() const { return *current_item; }
     void use_item(Creature* creature,  int drow,  int dcol);
     void change_using_item();
     void add_item(Item* new_item);

@@ -18,10 +18,10 @@ public:
     Item() = default;
     explicit Item(unsigned int range, unsigned int usages) : range(range), usages(usages) {};
     virtual void interact(Creature* creature) {};
-    virtual bool is_damaging() { return false; };
+    virtual bool is_damaging() const { return false; };
 
-    unsigned int get_range() { return range; }
-    unsigned int get_usages() { return usages; }
+    unsigned int get_range() const { return range; }
+    unsigned int get_usages() const { return usages; }
 };
 
 

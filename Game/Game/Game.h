@@ -8,7 +8,6 @@
 #include "../GameIntreface/GameInterface.h"
 
 #include "../../field/FieldBuilder/FieldBuilder.h"
-#include "../../ClassesHelpers/Logger/Logger.h"
 
 #define OOP_GAME_GAME_H
 

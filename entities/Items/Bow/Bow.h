@@ -11,7 +11,7 @@ class Bow : public Item {
     void attack(Creature *creature) override;
 public:
     Bow(unsigned int range=5, unsigned int damage=10, unsigned int usages=50);
-    bool is_damaging() override;
+    bool is_damaging() const override;
     void interact(Creature *creature) override;
 };
 

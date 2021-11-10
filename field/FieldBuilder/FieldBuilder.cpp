@@ -28,6 +28,9 @@ void FieldBuilder::create_path(unsigned int row_ent, unsigned int col_ent, unsig
     }
 }
 
+FieldBuilder::FieldBuilder(Logger &logger) : logger(logger){
+}
+
 Cell *FieldBuilder::get_random_vacant_cell() {
     auto row = randomer.get_random_int(1, rows-1);
     auto col = randomer.get_random_int(1, cols-1);
@@ -199,15 +202,6 @@ void FieldBuilder::add_Bow(unsigned int row, unsigned int col) {
     add_item(new Bow(), row, col);
 }
 
-Field *FieldBuilder::get_result() {
-    Field* field = nullptr;
-    if (player != nullptr && cells != nullptr) {
-        field = new Field(player, player_coords, enemies, enemies_num, items, cells, enter_cell, exit_cell, rows, cols);
-    }
-    clear();
-    return field;
-}
-
 void FieldBuilder::clear() {
     rows = 0;
     cols = 0;
@@ -219,5 +213,16 @@ void FieldBuilder::clear() {
     enemies = {};
     items = {};
     enemies_num = 0;
+}
+
+
+
+Field *FieldBuilder::get_result() {
+    Field* field = nullptr;
+    if (player != nullptr && cells != nullptr) {
+        field = new Field(player, player_coords, enemies, enemies_num, items, cells, enter_cell, exit_cell, rows, cols, logger);
+    }
+    clear();
+    return field;
 }
 
