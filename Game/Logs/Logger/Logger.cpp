@@ -5,12 +5,6 @@
 #include "Logger.h"
 
 
-void Logger::print(const Entity *ent) {
-    if (ent != nullptr) {
-        print_console(ent);
-        print_file(ent);
-    }
-}
 
 void Logger::print_console(const Entity *ent) {
     if (using_console)
@@ -56,8 +50,10 @@ void Logger::add_subscriber(Entity *ent) {
 void Logger::remove_subscriber(Entity *ent) {
     if (ent != nullptr) {
         auto elem = std::find(observing_objects.begin(), observing_objects.end(), ent);
-        if (elem != observing_objects.end())
+        if (elem != observing_objects.end()) {
             observing_objects.erase(elem);
+            observer.remove_object(*elem);
+        }
     }
 }
 

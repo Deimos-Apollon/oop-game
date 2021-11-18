@@ -16,7 +16,7 @@
 
 using namespace std;
 class Logger {
-    std::vector <Entity*> observing_objects;        // TODO use set
+    std::vector <Entity*> observing_objects;           // TODO use set
 
     Observer observer;
     FileStream* file = nullptr;
@@ -24,7 +24,7 @@ class Logger {
     bool using_console = false;
     bool using_file = false;
 public:
-    void print(const Entity* ent);
+
     void print_console(const Entity* ent);
     void print_file(const Entity* ent);
 

@@ -12,13 +12,11 @@
 #include "../../../entities/Entity/Entity.h"
 #include "../../../entities/Creatures/Player/Player.h"
 #include "../../../entities/Creatures/Enemies/Enemy/Enemy.h"
+#include "../Adapter/Adapter.h"
 
 class Observer {
     std::map <const Entity*, std::vector <unsigned int> > objects_cache;
-
-    std::map <size_t, string> phrases_player;
-    std::map <size_t, string> phrases_enemy;
-    std::map <size_t, string> phrases_item;
+    Adapter adapter;
 
     void add_player(const Player* player);
     void add_item(const Item* item);
@@ -30,6 +28,7 @@ class Observer {
 public:
     Observer();
     void add_object(const Entity* entity);
+    void remove_object(const Entity* entity);
 
     std::string check_object(const Entity* entity);
 };

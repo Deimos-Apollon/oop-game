@@ -136,7 +136,6 @@ bool Field::proceed() {
 
     logger.print_console(player);
     logger.print_console(&player->get_item());
-    logger.proceed_subscribers();
 
     player_controller->check_for_input();
     vector <Enemy*> enemies_erase = {};
@@ -159,6 +158,9 @@ bool Field::proceed() {
         strategies_manager.step(this, enemy, player);
         std::cout << "Enemy hp: " << enemy->get_curr_hp() << '\n';
     }
+
+    logger.proceed_subscribers();
+
     if (player->get_curr_hp() == 0)
     {
         this->finish();

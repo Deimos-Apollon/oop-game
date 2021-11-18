@@ -5,6 +5,50 @@
 #include "Adapter.h"
 
 
+Adapter::Adapter() {
+    phrases_player = {
+            {0, "hp"},
+            {1, "armor"},
+            {2, "basic_attack_damage"},
+            {3, "attack_range"},
+            {4, "using_item"},
+    };
+    phrases_enemy = {
+            {0, "hp"},
+            {1, "armor"},
+            {2, "basic_attack_damage"},
+            {3, "attack_range"},
+    };
+    phrases_item = {
+            {0, "is damaging"},
+            {1, "usages"},
+            {2, "range"},
+    };
+}
+
+string Adapter::two_differs_to_player_info(size_t parameter_index, unsigned int old_value, unsigned int new_value) {
+    string text = "";
+    text += "Player's " + phrases_player[parameter_index] + " has changed from " + to_string(old_value)
+            + " to " + to_string(new_value) + "\n";
+    return text;
+}
+
+string Adapter::two_differs_to_item_info(size_t parameter_index, unsigned int old_value, unsigned int new_value) {
+    string text = "";
+    text += "Item's " + phrases_item[parameter_index] + " has changed from " + to_string(old_value)
+            + " to " + to_string(new_value) + '\n';
+    return text;
+}
+
+string Adapter::two_differs_to_enemy_info(size_t parameter_index, unsigned int old_value, unsigned int new_value) {
+    string text = "";
+    text += "Enemy's " + phrases_enemy[parameter_index] + " has changed from " + to_string(old_value)
+            + " to " + to_string(new_value) + '\n';
+    return text;
+}
+
+
+
 std::ostream& operator<<(std::ostream& out, const Player& player)
 {
     std::string text =

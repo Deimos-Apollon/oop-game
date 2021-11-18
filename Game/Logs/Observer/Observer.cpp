@@ -83,21 +83,17 @@ std::string Observer::check_player(const Player *player) {
             player->get_attack_range(),
             player->get_using_item(),
     };
-    std::vector <size_t> mismatched_indexes;
+
+    bool differs = false;
     for (size_t i = 0; i < vect_size; ++i)
     {
         if (new_player_stats[i] != old_stats[i])
         {
-            mismatched_indexes.push_back(i);
+            differs = true;
+            text += adapter.two_differs_to_player_info(i, old_stats[i], new_player_stats[i]);
         }
     }
-    for (auto index: mismatched_indexes)
-    {
-        text += "Player's " + phrases_player[index] + " has changed from " + to_string(old_stats[index])
-                + " to " + to_string(new_player_stats[index]);
-    }
-    if (!mismatched_indexes.empty()) {
-        text += '\n';
+    if (differs) {
         objects_cache[player] = new_player_stats;
     }
     return text;
@@ -112,21 +108,18 @@ std::string Observer::check_item(const Item *item) {
             item->get_usages(),
             item->get_range(),
     };
-    std::vector <size_t> mismatched_indexes;
+
+    bool differs = false;
     for (size_t i = 0; i < vect_size; ++i)
     {
         if (new_item_stats[i] != old_stats[i])
         {
-            mismatched_indexes.push_back(i);
+            differs = true;
+            text += adapter.two_differs_to_item_info(i, old_stats[i], new_item_stats[i]);
         }
     }
-    for (auto index: mismatched_indexes)
-    {
-        text += "Item's " + phrases_item[index] + " has changed from " + to_string(old_stats[index])
-                + " to " + to_string(new_item_stats[index]);
-    }
-    if (!mismatched_indexes.empty()) {
-        text += '\n';
+
+    if (differs) {
         objects_cache[item] = new_item_stats;
     }
     return text;
@@ -142,43 +135,30 @@ std::string Observer::check_enemy(const Enemy *enemy) {
             enemy->get_basic_attack_damage(),
             enemy->get_attack_range(),
     };
-    std::vector <size_t> mismatched_indexes;
+
+    bool differs = false;
     for (size_t i = 0; i < vect_size; ++i)
     {
         if (new_enemy_stats[i] != old_stats[i])
         {
-            mismatched_indexes.push_back(i);
+            differs = true;
+            text += adapter.two_differs_to_enemy_info(i, old_stats[i], new_enemy_stats[i]);
         }
     }
-    for (auto index: mismatched_indexes)
-    {
-        text += "Enemy's " + phrases_enemy[index] + " has changed from " + to_string(old_stats[index])
-                + " to " + to_string(new_enemy_stats[index]);
-    }
-    if (!mismatched_indexes.empty()) {
-        text += '\n';
+
+    if (differs) {
         objects_cache[enemy] = new_enemy_stats;
     }
     return text;
 }
 
 Observer::Observer() {
-    phrases_player = {
-            {0, "hp"},
-            {1, "armor"},
-            {2, "basic_attack_damage"},
-            {3, "attack_range"},
-            {4, "using_item"},
-    };
-    phrases_enemy = {
-            {0, "hp"},
-            {1, "armor"},
-            {2, "basic_attack_damage"},
-            {3, "attack_range"},
-    };
-    phrases_item = {
-            {0, "is damaging"},
-            {1, "usages"},
-            {2, "range"},
-    };
+
+}
+
+void Observer::remove_object(const Entity *entity) {
+    if (objects_cache.find(entity) != objects_cache.end())
+    {
+        objects_cache.erase(entity);
+    }
 }
