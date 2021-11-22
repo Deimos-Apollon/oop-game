@@ -5,27 +5,32 @@
 #ifndef OOP_GAME_GAME_H
 
 #include "../../field/Field/Field.h"
-#include "../GameIntreface/GameInterface.h"
+
 
 #include "../../field/FieldBuilder/FieldBuilder.h"
+#include "../GameRules/AllEnemiesDeadRules.h"
+#include "../../CLI_Interface/CLI_Field/FieldView.h"
 
 #define OOP_GAME_GAME_H
 
 
-class Game : GameInterface{                         // Ask how to create multiple levels (mind using LevelBuilder)
+template <class ...Rules>
+class Game{
     Player* player = nullptr;
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 
+    std::tuple <Rules...> levels_rules = {Rules{}...};
+
     Logger logger;
 protected:
-    void proceed() override;
-    void finish() override;
+    void proceed();
+    void finish();
 public:
     Game() = default;
     ~Game();
     Game(Player* player, FieldInterface** fields, unsigned int fields_num);
-    void start() override;
+    void start();
 };
 
 

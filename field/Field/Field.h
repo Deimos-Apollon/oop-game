@@ -51,6 +51,7 @@ protected:
     Logger& logger;
 
 
+
 public:
     Field(Player* player, pair <unsigned int, unsigned int> player_coords, map <Enemy*, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
           map <Item*, pair<unsigned int, unsigned int>> items, Cell*** cells, Cell* enter_cell, Cell* exit_cell,
@@ -63,7 +64,7 @@ public:
     ~Field() override;
 
     void start() override;
-    bool proceed() override;
+    void proceed() override;
     void finish() override;
 
     unsigned int get_rows() const { return rows; }
@@ -80,6 +81,10 @@ public:
 
     int calculate_distance_from_player(Enemy* enemy);
     pair<int,int> calculate_differ_in_distance_with_player(Enemy* enemy) override;
+
+    unsigned int get_enemies_num() override;
+    bool player_stands_on_exit() override;
+    bool player_is_dead() override;
 };
 
 

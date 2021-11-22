@@ -3,6 +3,8 @@
 //
 
 #include "Field.h"
+
+#include <utility>
 #include "../../CLI_Interface/CLI_Field/FieldView.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/MeleeSkeletonAgressiveStrategy/MeleeSkeletonAgressiveStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ArcherSkeletonStrategy/ArcherSkeletonStrategy.h"
@@ -10,12 +12,10 @@
 
 
 
-
-
 Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, map<Enemy *, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
              map<Item *, pair<unsigned int, unsigned int>> items, Cell ***cells, Cell *enter_cell, Cell *exit_cell,
              unsigned int rows, unsigned int cols, Logger& logger):
-             player(player), player_coords(player_coords), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
+             player(player), player_coords(std::move(player_coords)), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
              cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2), logger(logger)
 {
     player_controller = new PlayerController(this, player);
@@ -132,7 +132,7 @@ void Field::start() {
 void Field::finish() {
 }
 
-bool Field::proceed() {
+void Field::proceed() {
 
     logger.print_console(player);
     logger.print_console(&player->get_item());
@@ -151,6 +151,7 @@ bool Field::proceed() {
     for (auto enemy: enemies_erase)
     {
         delete_enemy(enemy);
+        enemies_num -= 1;
     }
     for (auto enemy_pair: enemies)
     {
@@ -164,16 +165,13 @@ bool Field::proceed() {
     if (player->get_curr_hp() == 0)
     {
         this->finish();
-        return false;
     }
     if (cells[player_coords.first][player_coords.second] == exit_cell)
     {
         this->finish();
-        return false;
     }
 
     _sleep(100);
-    return true;
 
 }
 
@@ -286,3 +284,16 @@ void Field::delete_enemy(Enemy *enemy) {
 
     // TODO logger.delete enemy
 }
+
+unsigned Field::get_enemies_num() {
+    return enemies_num;
+}
+
+bool Field::player_stands_on_exit() {
+    return (player_coords.first == exit_cell->get_row() && player_coords.second == exit_cell->get_col());
+}
+
+bool Field::player_is_dead() {
+    return player->get_curr_hp() == 0;
+}
+
