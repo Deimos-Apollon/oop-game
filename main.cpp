@@ -7,6 +7,6 @@
 int main() {
 
     // TODO (попробовать хранить стратегию в enemy)
-    Game<AllEnemiesDeadRules, AllEnemiesDeadRules> game;
+    Game<AllEnemiesDeadRules<int>, AllEnemiesDeadRules<size_t>> game;
     game.start();
 }

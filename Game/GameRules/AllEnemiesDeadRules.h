@@ -10,11 +10,17 @@
 
 template<class T>
 class AllEnemiesDeadRules {
-    FieldInterface* field = nullptr;
+    FieldInterface *field = nullptr;
+    T number = 0;
 public:
-    bool tasks_complited();
+    bool tasks_complited() {
+        if (field->get_enemies_num() == number) {
+            return true;
+        }
+        return false;
+    }
     void set_field(FieldInterface* field) { this->field = field; }
-
+    void set_number(T arg_number) { number = arg_number; }
 };
 
 

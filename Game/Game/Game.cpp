@@ -101,12 +101,14 @@ void Game<Rules...>::start() {
 
     for (std::size_t i = 0; i < fields_num; ++i)
     {
-        switch(i)                                   // TODO DELETE VERY BAD
+        switch(i)                                   // TODO DELETE VERY BAD IT IS INIT
         {
             case 0:
+                std::get<0>(levels_rules).set_number(0);
                 std::get<0>(levels_rules).set_field(fields[i]);
                 break;
             case 1:
+                std::get<1>(levels_rules).set_number(1);
                 std::get<1>(levels_rules).set_field(fields[i]);
                 break;
             default:
@@ -114,6 +116,7 @@ void Game<Rules...>::start() {
         }
     }
 
+    this->proceed();
 }
 
 template<class... Rules>

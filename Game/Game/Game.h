@@ -20,14 +20,14 @@ class Game{
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 
-    std::tuple <Rules...> levels_rules = {Rules{}...};
+    std::tuple <Rules...> levels_rules;
 
     Logger logger;
 protected:
     void proceed();
     void finish();
 public:
-    Game() = default;
+    Game() = default;;
     ~Game();
     Game(Player* player, FieldInterface** fields, unsigned int fields_num);
     void start();
