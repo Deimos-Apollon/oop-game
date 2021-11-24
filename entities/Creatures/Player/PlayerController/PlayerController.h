@@ -12,7 +12,8 @@ class PlayerController
     FieldInterface* field;
     Player* player;
 public:
-    PlayerController(FieldInterface* field, Player* player) : field(field), player(player) {};
+    explicit PlayerController(Player* player, FieldInterface* field=nullptr) : field(field), player(player) {};
+    void set_field(FieldInterface* new_field) { field = new_field; }
     void check_for_input();
 };
 

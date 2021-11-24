@@ -41,7 +41,6 @@ protected:
 
     Player* player;
     pair <unsigned int, unsigned int> player_coords;
-    PlayerController* player_controller;
 
     map <Enemy*, pair<unsigned int, unsigned int>> enemies = {};
     map <Item*, pair<unsigned int, unsigned int>> items = {};
@@ -85,6 +84,7 @@ public:
     unsigned int get_enemies_num() override;
     bool player_stands_on_exit() override;
     bool player_is_dead() override;
+    const Item *const get_players_item() override { return player->get_item(); };
 };
 
 

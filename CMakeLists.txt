@@ -30,5 +30,5 @@ add_executable(oop_game
         entities/Creatures/Enemies/AIStrategy/StrategiesManager/StrategiesManager.cpp entities/Creatures/Enemies/AIStrategy/StrategiesManager/StrategiesManager.h
         Game/Logs/Logger/Logger.cpp Game/Logs/Logger/Logger.h Game/Logs/Adapter/Adapter.cpp Game/Logs/Adapter/Adapter.h Game/Logs/LogStream/FileStream/FileStream.cpp
         Game/Logs/LogStream/FileStream/FileStream.h Game/Logs/LogStream/ConsoleStream/ConsoleStream.cpp Game/Logs/LogStream/ConsoleStream/ConsoleStream.h
-        Game/Logs/LogStream/LogStreamInterface.h Game/Logs/Observer/Observer.cpp Game/Logs/Observer/Observer.h Game/GameRules/AllEnemiesDeadRules.cpp
-        Game/GameRules/AllEnemiesDeadRules.h)
+        Game/Logs/LogStream/LogStreamInterface.h Game/Logs/Observer/Observer.cpp Game/Logs/Observer/Observer.h Game/GameRules/AllEnemiesDeadRules/AllEnemiesDeadRules.cpp
+        Game/GameRules/AllEnemiesDeadRules/AllEnemiesDeadRules.h Game/GameRules/PickedItem/PickedItem.cpp Game/GameRules/PickedItem/PickedItem.h)

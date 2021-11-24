@@ -18,7 +18,7 @@ Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, ma
              player(player), player_coords(std::move(player_coords)), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
              cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2), logger(logger)
 {
-    player_controller = new PlayerController(this, player);
+
 }
 
 Field::Field(Field &other, Logger& logger) : rows(other.rows), cols(other.cols), logger(other.logger){
@@ -62,8 +62,7 @@ Field::~Field() {
     }
     items = {};
 
-    delete player_controller;
-    player_controller = nullptr;
+
 }
 
 Field &Field::operator=(Field &other) {
@@ -135,9 +134,8 @@ void Field::finish() {
 void Field::proceed() {
 
     logger.print_console(player);
-    logger.print_console(&player->get_item());
+    logger.print_console(player->get_item());
 
-    player_controller->check_for_input();
     vector <Enemy*> enemies_erase = {};
 
     for (auto enemy_pair: enemies)
@@ -161,18 +159,6 @@ void Field::proceed() {
     }
 
     logger.proceed_subscribers();
-
-    if (player->get_curr_hp() == 0)
-    {
-        this->finish();
-    }
-    if (cells[player_coords.first][player_coords.second] == exit_cell)
-    {
-        this->finish();
-    }
-
-    _sleep(100);
-
 }
 
 const Cell *const Field::get_cell(unsigned int row, unsigned int col) {
@@ -239,12 +225,10 @@ pair<int, int> Field::calculate_differ_in_distance_with_player(Enemy *enemy) {
 void Field::player_attack_nearest_enemy() {
     auto min = 0;
     Enemy* min_enemy = nullptr;
-    for (auto enemy_pair: enemies)
-    {
+    for (auto enemy_pair: enemies) {
         auto enemy = enemy_pair.first;
         auto dist = calculate_distance_from_player(enemy);
-        if (min == 0 || dist < min)
-        {
+        if (min == 0 || dist < min) {
             min = dist;
             min_enemy = enemy;
         }
@@ -252,8 +236,7 @@ void Field::player_attack_nearest_enemy() {
     if (min_enemy != nullptr) {
         auto coords = calculate_differ_in_distance_with_player(min_enemy);
         player->attack(min_enemy, coords.first, coords.second);
-    } else if (player->is_item_healing())
-    {
+    } else if (player->get_using_item() && player->is_item_healing()) {
         player->use_item(player, 0, 0);
     }
 }

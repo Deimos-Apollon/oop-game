@@ -36,9 +36,13 @@ void PlayerController::check_for_input() {
             case 32:
                 field->player_attack_nearest_enemy();
                 break;
-            case 's':
+            case 'i':
                 player->change_using_item();
-                std::cout << "changed using item";
+                std::cout << "using_item";
+                break;
+            case 's':
+                player->switch_to_next_item();
+                std::cout << "NEW item";
                 break;
         }
     }

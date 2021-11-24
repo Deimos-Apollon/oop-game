@@ -19,7 +19,7 @@ void Player::add_item(Item* new_item) {
 }
 
 void Player::use_item(Creature *creature, int drow, int dcol) {
-    if (abs(drow) <= current_item->get_range() && abs(dcol) <= current_item->get_range())
+    if (using_item && abs(drow) <= current_item->get_range() && abs(dcol) <= current_item->get_range())
         current_item->interact(creature);
 }
 
@@ -49,5 +49,14 @@ Player::~Player() {
         delete item;
     }
     items = {};
+}
+
+void Player::switch_to_next_item() {
+    if (using_item) {
+        ++current_item_index;
+        if (current_item_index == items.size())
+            current_item_index = 0;
+        current_item = items[current_item_index];
+    }
 }
 

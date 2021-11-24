@@ -19,7 +19,9 @@ void Game<Rules...>::proceed() {
 
     for (std::size_t i = 0; i < fields_num; ++i)
     {
+
         curr_level = fields[i];
+        player_controller->set_field(curr_level);
 
         FieldIterator fi(*dynamic_cast<Field *>(curr_level));
         FieldView lv(fi);
@@ -30,6 +32,7 @@ void Game<Rules...>::proceed() {
         while(!level_stop)
         {
             lv.print();
+            player_controller->check_for_input();
             curr_level->proceed();
             switch(i)                                   // TODO DELETE VERY BAD
             {
@@ -39,9 +42,14 @@ void Game<Rules...>::proceed() {
                 case 1:
                     level_stop = (std::get<1>(levels_rules)).tasks_complited();
                     break;
-                default:
-                    break;
             }
+
+            if (player->get_curr_hp() == 0)
+            {
+                this->finish();
+            }
+
+            _sleep(100);
             system("cls");
         };
     }
@@ -101,14 +109,13 @@ void Game<Rules...>::start() {
 
     for (std::size_t i = 0; i < fields_num; ++i)
     {
+
         switch(i)                                   // TODO DELETE VERY BAD IT IS INIT
         {
             case 0:
-                std::get<0>(levels_rules).set_number(0);
                 std::get<0>(levels_rules).set_field(fields[i]);
                 break;
             case 1:
-                std::get<1>(levels_rules).set_number(1);
                 std::get<1>(levels_rules).set_field(fields[i]);
                 break;
             default:
@@ -116,6 +123,10 @@ void Game<Rules...>::start() {
         }
     }
 
+    if (player_controller == nullptr)
+    {
+        player_controller = new PlayerController(player);
+    }
     this->proceed();
 }
 
@@ -130,6 +141,9 @@ Game<Rules...>::~Game() {
 
     delete player;
     player = nullptr;
+
+    delete player_controller;
+    player_controller = nullptr;
 }
 
 

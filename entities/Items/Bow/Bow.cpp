@@ -20,7 +20,7 @@ void Bow::interact(Creature *creature) {
 }
 
 Bow::Bow(unsigned int range, unsigned int damage, unsigned int usages) :
-    Item(range, usages)
+    Item(range, usages), damage(damage)
 {
 
 }

@@ -27,6 +27,7 @@ public:
     virtual unsigned int get_enemies_num() = 0;
     virtual bool player_stands_on_exit() = 0;
     virtual bool player_is_dead() = 0;
+    virtual const Item* const get_players_item() = 0;
 };
 
 
