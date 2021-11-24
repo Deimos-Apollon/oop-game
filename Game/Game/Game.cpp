@@ -33,15 +33,18 @@ void Game<Rules...>::proceed() {
         {
             lv.print();
             player_controller->check_for_input();
+
             curr_level->proceed();
-            switch(i)                                   // TODO DELETE VERY BAD
-            {
-                case 0:
-                    level_stop = (std::get<0>(levels_rules)).tasks_complited();
-                    break;
-                case 1:
-                    level_stop = (std::get<1>(levels_rules)).tasks_complited();
-                    break;
+            if (curr_level->player_stands_on_exit()) {
+                switch (i)                                   // TODO DELETE VERY BAD
+                {
+                    case 0:
+                        level_stop = (std::get<0>(levels_rules)).tasks_complited();
+                        break;
+                    case 1:
+                        level_stop = (std::get<1>(levels_rules)).tasks_complited();
+                        break;
+                }
             }
 
             if (player->get_curr_hp() == 0)

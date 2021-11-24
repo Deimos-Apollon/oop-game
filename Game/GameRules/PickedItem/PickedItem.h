@@ -15,7 +15,7 @@ class PickedItem {
     FieldInterface *field = nullptr;
 public:
     bool tasks_complited() {
-        if (dynamic_cast<const T*>(field->get_players_item()) && field->player_stands_on_exit())
+        if ( field->player_stands_on_exit() && dynamic_cast<const T*>(field->get_players_item()))
         {
             return true;
         }

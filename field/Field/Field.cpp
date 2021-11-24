@@ -155,7 +155,6 @@ void Field::proceed() {
     {
         auto enemy = enemy_pair.first;
         strategies_manager.step(this, enemy, player);
-        std::cout << "Enemy hp: " << enemy->get_curr_hp() << '\n';
     }
 
     logger.proceed_subscribers();
