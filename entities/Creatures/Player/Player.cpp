@@ -15,6 +15,7 @@ void Player::add_item(Item* new_item) {
     if (current_item == nullptr)
     {
         current_item = new_item;
+        this->set_has_changed(true);
     }
 }
 
@@ -27,8 +28,10 @@ void Player::attack(Creature *other_creature,  int drow,  int dcol) {
     if (using_item) {
         if (current_item->is_damaging())
             use_item(other_creature, drow, dcol);
-        else
+        else {
             use_item(this, 0, 0);
+            this->set_has_changed(true);
+        }
     }
     else {
         if (abs(drow) <= attack_range && abs(dcol) <= attack_range) {
@@ -40,6 +43,7 @@ void Player::attack(Creature *other_creature,  int drow,  int dcol) {
 void Player::change_using_item() {
     if (current_item != nullptr) {
         this->using_item = !this->using_item;
+        this->set_has_changed(true);
     }
 }
 
@@ -57,6 +61,7 @@ void Player::switch_to_next_item() {
         if (current_item_index == items.size())
             current_item_index = 0;
         current_item = items[current_item_index];
+        this->set_has_changed(true);
     }
 }
 

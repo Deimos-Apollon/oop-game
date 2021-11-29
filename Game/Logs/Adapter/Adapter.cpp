@@ -7,22 +7,22 @@
 
 Adapter::Adapter() {
     phrases_player = {
-            {0, "hp"},
-            {1, "armor"},
-            {2, "basic_attack_damage"},
-            {3, "attack_range"},
-            {4, "using_item"},
+            "hp",
+            "armor",
+            "basic_attack_damage",
+            "attack_range",
+            "using_item",
     };
     phrases_enemy = {
-            {0, "hp"},
-            {1, "armor"},
-            {2, "basic_attack_damage"},
-            {3, "attack_range"},
+            "hp",
+            "armor",
+            "basic_attack_damage",
+            "attack_range",
     };
     phrases_item = {
-            {0, "is damaging"},
-            {1, "usages"},
-            {2, "range"},
+            "is damaging",
+            "usages",
+            "range",
     };
 }
 

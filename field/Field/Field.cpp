@@ -157,7 +157,7 @@ void Field::proceed() {
         strategies_manager.step(this, enemy, player);
     }
 
-    logger.proceed_subscribers();
+    logger.proceed();
 }
 
 const Cell *const Field::get_cell(unsigned int row, unsigned int col) {

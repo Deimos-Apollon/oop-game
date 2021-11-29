@@ -16,11 +16,10 @@
 
 using namespace std;
 class Logger {
-    std::vector <Entity*> observing_objects;           // TODO use set
 
     Observer observer;
-    FileStream* file = nullptr;
-    ConsoleStream* console = nullptr;
+    vector <FileStream*> files = {};
+    vector <ConsoleStream*> consoles = {};
     bool using_console = false;
     bool using_file = false;
 public:
@@ -34,12 +33,12 @@ public:
     void set_logging_to_file(const std::string& filename);
     void set_logging_to_console();
 
-    void reset_logging_to_file();
-    void reset_logging_to_console();
+    void reset_logging_to_file(FileStream* del_filestream);
+    void reset_logging_to_console(ConsoleStream* del_console);
 
     void add_subscriber(Entity* ent);
     void remove_subscriber(Entity* ent);
-    void proceed_subscribers();
+    void proceed();
 };
 
 

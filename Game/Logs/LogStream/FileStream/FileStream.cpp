@@ -8,7 +8,7 @@
 FileStream::FileStream(const std::string& filename) : file(filename) {
     if (!file.is_open())
     {
-        //throw std::runtime_error("file open failure");
+        throw std::runtime_error("file open failure");
     }
 }
 

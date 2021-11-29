@@ -27,13 +27,17 @@ void Logger::set_logging_to_file(const std::string& filename) {
     using_file = true;
 }
 
-void Logger::reset_logging_to_file() {
-    delete file;
-    file = nullptr;
-    using_file = false;
+void Logger::reset_logging_to_file(FileStream* del_filestream) {
+    auto del_find = std::find(files.begin(), files.end(), del_filestream);
+    if (del_find != files.end()) {
+        std::vector<FileStream>
+        delete del_find;
+        file = nullptr;
+        using_file = false;
+    }
 }
 
-void Logger::reset_logging_to_console() {
+void Logger::reset_logging_to_console(ConsoleStream* del_consolestream) {
     delete console;
     console = nullptr;
     using_console = false;
@@ -42,7 +46,6 @@ void Logger::reset_logging_to_console() {
 
 void Logger::add_subscriber(Entity *ent) {
     if (ent != nullptr) {
-        observing_objects.push_back(ent);
         observer.add_object(ent);
     }
 }
@@ -57,23 +60,24 @@ void Logger::remove_subscriber(Entity *ent) {
     }
 }
 
-void Logger::proceed_subscribers() {
-    for (auto object: observing_objects)
-    {
-        auto data = observer.check_object(object);
-        write_file(data);
-        write_console(data);
-    }
+void Logger::proceed() {
+    auto data = observer.check_objects();
+    write_file(data);
+    write_file("hello");
+    write_console(data);
 }
 
 void Logger::write_console(const string &data) {
     if (using_console)
-        console->write(data);
+        for (auto console: consoles)
+            console->write(data);
 }
 
 void Logger::write_file(const string &data) {
     if (using_file)
-        file->write(data);
+        for (auto file: files) {
+            file->write(data);
+        }
 }
 
 

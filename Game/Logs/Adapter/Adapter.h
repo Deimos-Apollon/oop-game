@@ -7,7 +7,6 @@
 
 #include <ostream>
 #include <string>
-#include <map>
 
 #include "../../../entities/Creatures/Player/Player.h"
 #include "../../../entities/Creatures/Enemies/Enemy/Enemy.h"
@@ -20,9 +19,9 @@ std::ostream& operator<<(std::ostream& out, const Entity* entity);
 using namespace std;
 
 class Adapter {
-    std::map <size_t, string> phrases_player;
-    std::map <size_t, string> phrases_enemy;
-    std::map <size_t, string> phrases_item;
+    std::vector <string> phrases_player;
+    std::vector <string> phrases_enemy;
+    std::vector <string> phrases_item;
 public:
     Adapter();
     string two_differs_to_player_info(size_t parameter_index, unsigned int old_value, unsigned int new_value);

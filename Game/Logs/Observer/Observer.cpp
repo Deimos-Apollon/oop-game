@@ -74,80 +74,85 @@ std::string Observer::check_object(const Entity *entity) {
 
 std::string Observer::check_player(const Player *player) {
     std::string text = "";
-    const size_t vect_size = 5;
-    auto old_stats = objects_cache[player];
-    std::vector <unsigned int> new_player_stats = {
-            player->get_curr_hp(),
-            player->get_armor(),
-            player->get_basic_attack_damage(),
-            player->get_attack_range(),
-            player->get_using_item(),
-    };
 
-    bool differs = false;
-    for (size_t i = 0; i < vect_size; ++i)
-    {
-        if (new_player_stats[i] != old_stats[i])
-        {
-            differs = true;
-            text += adapter.two_differs_to_player_info(i, old_stats[i], new_player_stats[i]);
+    if (player->get_and_restore_has_changed()) {
+        const size_t vect_size = 5;
+        auto old_stats = objects_cache[player];
+        std::vector <unsigned int> new_player_stats = {
+                player->get_curr_hp(),
+                player->get_armor(),
+                player->get_basic_attack_damage(),
+                player->get_attack_range(),
+                player->get_using_item(),
+        };
+
+        bool differs = false;
+        for (size_t i = 0; i < vect_size; ++i) {
+            if (new_player_stats[i] != old_stats[i]) {
+                differs = true;
+                text += adapter.two_differs_to_player_info(i, old_stats[i], new_player_stats[i]);
+            }
         }
-    }
-    if (differs) {
-        objects_cache[player] = new_player_stats;
+        if (differs) {
+            objects_cache[player] = new_player_stats;
+        }
     }
     return text;
 }
 
 std::string Observer::check_item(const Item *item) {
     std::string text = "";
-    const size_t vect_size = 3;
-    auto old_stats = objects_cache[item];
-    std::vector <unsigned int> new_item_stats = {
-            item->is_damaging(),
-            item->get_usages(),
-            item->get_range(),
-    };
 
-    bool differs = false;
-    for (size_t i = 0; i < vect_size; ++i)
-    {
-        if (new_item_stats[i] != old_stats[i])
-        {
-            differs = true;
-            text += adapter.two_differs_to_item_info(i, old_stats[i], new_item_stats[i]);
+    if (item->get_and_restore_has_changed()) {
+
+        const size_t vect_size = 3;
+        auto old_stats = objects_cache[item];
+        std::vector<unsigned int> new_item_stats = {
+                item->is_damaging(),
+                item->get_usages(),
+                item->get_range(),
+        };
+
+        bool differs = false;
+        for (size_t i = 0; i < vect_size; ++i) {
+            if (new_item_stats[i] != old_stats[i]) {
+                differs = true;
+                text += adapter.two_differs_to_item_info(i, old_stats[i], new_item_stats[i]);
+            }
         }
-    }
 
-    if (differs) {
-        objects_cache[item] = new_item_stats;
+        if (differs) {
+            objects_cache[item] = new_item_stats;
+        }
+
     }
     return text;
 }
 
 std::string Observer::check_enemy(const Enemy *enemy) {
     std::string text = "";
-    const size_t vect_size = 4;
-    auto old_stats = objects_cache[enemy];
-    std::vector <unsigned int> new_enemy_stats = {
-            enemy->get_curr_hp(),
-            enemy->get_armor(),
-            enemy->get_basic_attack_damage(),
-            enemy->get_attack_range(),
-    };
 
-    bool differs = false;
-    for (size_t i = 0; i < vect_size; ++i)
-    {
-        if (new_enemy_stats[i] != old_stats[i])
-        {
-            differs = true;
-            text += adapter.two_differs_to_enemy_info(i, old_stats[i], new_enemy_stats[i]);
+    if (enemy->get_and_restore_has_changed()) {
+        const size_t vect_size = 4;
+        auto old_stats = objects_cache[enemy];
+        std::vector<unsigned int> new_enemy_stats = {
+                enemy->get_curr_hp(),
+                enemy->get_armor(),
+                enemy->get_basic_attack_damage(),
+                enemy->get_attack_range(),
+        };
+
+        bool differs = false;
+        for (size_t i = 0; i < vect_size; ++i) {
+            if (new_enemy_stats[i] != old_stats[i]) {
+                differs = true;
+                text += adapter.two_differs_to_enemy_info(i, old_stats[i], new_enemy_stats[i]);
+            }
         }
-    }
 
-    if (differs) {
-        objects_cache[enemy] = new_enemy_stats;
+        if (differs) {
+            objects_cache[enemy] = new_enemy_stats;
+        }
     }
     return text;
 }
@@ -161,4 +166,13 @@ void Observer::remove_object(const Entity *entity) {
     {
         objects_cache.erase(entity);
     }
+}
+
+std::string Observer::check_objects() {
+    string text = "";
+    for (const auto& subsriber: objects_cache)
+    {
+        text += this->check_object(subsriber.first);
+    }
+    return text;
 }

@@ -8,6 +8,7 @@ void RestorationWand::interact(Creature *creature) {
     if (usages != 0) {
         this->heal(creature);
         --usages;
+        this->set_has_changed(true);
     }
 }
 

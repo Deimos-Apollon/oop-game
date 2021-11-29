@@ -25,12 +25,14 @@ class Observer {
     std::string check_player(const Player* player);
     std::string check_item(const Item* item);
     std::string check_enemy(const Enemy* enemy);
+
+    std::string check_object(const Entity* entity);
+
 public:
     Observer();
     void add_object(const Entity* entity);
     void remove_object(const Entity* entity);
-
-    std::string check_object(const Entity* entity);
+    std::string check_objects();
 };
 
 

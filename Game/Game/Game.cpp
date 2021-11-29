@@ -4,7 +4,7 @@
 
 #include "Game.h"
 #include <utility>
-#include <unistd.h>
+
 
 
 template<class ... Rules>
@@ -53,7 +53,6 @@ void Game<Rules...>::proceed() {
                 this->finish();
             }
 
-            sleep(0.3);
             //system("cls");
         };
     }

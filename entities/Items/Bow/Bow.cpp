@@ -15,6 +15,7 @@ bool Bow::is_damaging() const {
 void Bow::interact(Creature *creature) {
     if (usages != 0) {
         --usages;
+        this->set_has_changed(true);
         this->attack(creature);
     }
 }
