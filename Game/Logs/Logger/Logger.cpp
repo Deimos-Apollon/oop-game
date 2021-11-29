@@ -49,11 +49,11 @@ void Logger::add_subscriber(Entity *ent) {
 
 void Logger::remove_subscriber(Entity *ent) {
     if (ent != nullptr) {
-        auto elem = std::find(observing_objects.begin(), observing_objects.end(), ent);
+        /* auto elem = std::find(observing_objects.begin(), observing_objects.end(), ent);
         if (elem != observing_objects.end()) {
             observing_objects.erase(elem);
             observer.remove_object(*elem);
-        }
+        } */
     }
 }
 

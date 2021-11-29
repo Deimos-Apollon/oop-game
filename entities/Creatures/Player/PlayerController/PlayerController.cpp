@@ -11,38 +11,40 @@
 #define KEY_RIGHT 77
 
 void PlayerController::check_for_input() {
-    if (_kbhit())
     {
-        auto code = _getch();
+        char code;
+        std::cin >> code;
         switch (code)
         {
             // left
-            case KEY_LEFT:
+            case 'a':
                 field->move_player(0, -1);
                 break;
             // right
-            case KEY_RIGHT:
+            case 'd':
                 field->move_player(0, 1);
                 break;
             // up
-            case KEY_UP:
+            case 'w':
                 field->move_player( -1, 0);
                 break;
             // down
-            case KEY_DOWN:
+            case 's':
                 field->move_player(1, 0);
                 break;
             // spacebar
-            case 32:
+            case 'q':
                 field->player_attack_nearest_enemy();
                 break;
             case 'i':
                 player->change_using_item();
                 std::cout << "using_item";
                 break;
-            case 's':
+            case 'n':
                 player->switch_to_next_item();
                 std::cout << "NEW item";
+                break;
+            default:
                 break;
         }
     }

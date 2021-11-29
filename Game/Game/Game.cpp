@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include <utility>
+#include <unistd.h>
 
 
 template<class ... Rules>
@@ -32,9 +33,9 @@ void Game<Rules...>::proceed() {
         while(!level_stop)
         {
             lv.print();
-            player_controller->check_for_input();
-
             curr_level->proceed();
+
+            player_controller->check_for_input();
             if (curr_level->player_stands_on_exit()) {
                 switch (i)                                   // TODO DELETE VERY BAD
                 {
@@ -52,8 +53,8 @@ void Game<Rules...>::proceed() {
                 this->finish();
             }
 
-            _sleep(100);
-            system("cls");
+            sleep(0.3);
+            //system("cls");
         };
     }
 }
