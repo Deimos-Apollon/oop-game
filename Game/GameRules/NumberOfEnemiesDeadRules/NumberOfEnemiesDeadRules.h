@@ -6,7 +6,7 @@
 #define OOP_GAME_NUMBEROFENEMIESDEADRULES_H
 
 #include "../../../field/FieldInterface/FieldInterface.h"
-
+#include <cstddef>
 
 template<size_t>
 class NumberOfEnemiesDeadRules {
@@ -14,7 +14,6 @@ class NumberOfEnemiesDeadRules {
     size_t number = 0;
 public:
     NumberOfEnemiesDeadRules() = default;
-    explicit NumberOfEnemiesDeadRules(size_t number): number(number){};
     bool tasks_complited() {
         if (field->player_stands_on_exit() && field->get_enemies_num() <= number) {
             return true;
