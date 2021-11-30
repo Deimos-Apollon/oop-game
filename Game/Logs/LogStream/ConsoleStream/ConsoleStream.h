@@ -9,9 +9,10 @@
 #include "../LogStreamInterface.h"
 
 class ConsoleStream : public LogStreamInterface{
+    ostream* console = nullptr;
 public:
     void write(const std::string &data) override;
-   void write(const Entity *object) override;
+    void write(const Entity *object) override;
 };
 
 

@@ -1,0 +1,7 @@
+
+[[Player info]]: 
+Health: 0/0
+Armor: 0
+AttackDamage: 0
+AttackRange: 1
+Using item?: 0

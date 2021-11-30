@@ -10,7 +10,7 @@
 #include "../../field/FieldBuilder/FieldBuilder.h"
 #include "../../CLI_Interface/CLI_Field/FieldView.h"
 
-#include "../GameRules/AllEnemiesDeadRules/AllEnemiesDeadRules.h"
+#include "../GameRules/NumberOfEnemiesDeadRules/NumberOfEnemiesDeadRules.h"
 #include "../GameRules/PickedItem/PickedItem.h"
 
 

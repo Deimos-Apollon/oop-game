@@ -17,13 +17,8 @@ FileStream::~FileStream() {
 }
 
 void FileStream::write(const Entity *object) {
-    if (!file.eof())
-    {
-        file << object;
-    } else
-    {
-        throw std::runtime_error("file write failure");
-    }
+    s_stream << object;
+    this->write(s_stream.str());
 }
 
 void FileStream::write(const string &data) {

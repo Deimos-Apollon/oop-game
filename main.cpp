@@ -8,6 +8,7 @@
 int main() {
 
     // TODO исправить на size_t, создать Level, который будет хранить правила и поле, и передавать туда тапл классов игры
-    Game<PickedItem<Bow>, AllEnemiesDeadRules<double>> game((PickedItem<Bow>()),  (AllEnemiesDeadRules<double>(10)));
+    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<std::size_t>> game((PickedItem<Bow>()),  (NumberOfEnemiesDeadRules<size_t>(10)));
     game.start();
+
 }

@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "../LogStreamInterface.h"
 
 #define OOP_GAME_FILE_H
@@ -13,6 +14,8 @@
 
 class FileStream : public LogStreamInterface {
     std::ofstream file;
+    stringstream s_stream;
+
 public:
     explicit FileStream(const std::string& filename);
     ~FileStream();
