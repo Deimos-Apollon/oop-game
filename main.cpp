@@ -8,8 +8,6 @@
 int main() {
 
     // TODO исправить на size_t, создать Level, который будет хранить правила и поле, и передавать туда тапл классов игры
-    //GameMenu gameMenu;
-    FieldInterface* field{};
-    auto new_f = dynamic_cast<Field*>(field);
-    new_f->start();
+    GameMenu gameMenu{};
+    gameMenu.run();
 }

@@ -22,7 +22,7 @@ void Game<Rules...>::proceed() {
     {
 
         curr_level = fields[i];
-        player_controller.set_field(curr_level);
+        player_controller->set_field(curr_level);
 
         FieldIterator fi(*dynamic_cast<Field *>(curr_level));
         FieldView lv(fi);
@@ -34,7 +34,7 @@ void Game<Rules...>::proceed() {
         {
             lv.print();
             curr_level->proceed();
-            player_controller.proceed();
+            player_controller->proceed();
 
             if (curr_level->player_stands_on_exit()) {
 
@@ -126,7 +126,7 @@ void Game<Rules...>::start() {
                 break;
         }
     }
-    player_controller.set_player(player);
+    player_controller->set_player(player);
     this->proceed();
 }
 

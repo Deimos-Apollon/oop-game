@@ -13,7 +13,6 @@
 #include "../GameRules/NumberOfEnemiesDeadRules/NumberOfEnemiesDeadRules.h"
 #include "../GameRules/PickedItem/PickedItem.h"
 #include "../../Controller/PlayerControllerInterface/PlayerControllerInterface.h"
-#include "../../Controller/PlayerCommandExecutor/PlayerCommandExecutor.h"
 #include "../../Controller/PlayerControllerInterface/PlayerControllerCLI/PlayerControllerCLI.h"
 
 
@@ -23,7 +22,7 @@
 template <class ...Rules>
 class Game{
     Player* player = nullptr;
-    PlayerCommandExecutor<PlayerControllerCLI> player_controller;
+    PlayerControllerInterface* player_controller;
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 
@@ -38,6 +37,7 @@ public:
     explicit Game(Rules... args): levels_rules(args...){};
     ~Game();
     Game(Player* player, FieldInterface** fields, unsigned int fields_num);
+    void setPlayerController(PlayerControllerInterface* pc) { player_controller = pc; };
     void start();
 };
 

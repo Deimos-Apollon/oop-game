@@ -5,18 +5,36 @@
 #include <iostream>
 #include "PlayerControllerCLI.h"
 
-unsigned int PlayerControllerCLI::check_for_input() {
-    char code;
-    std::cin >> code;
-    auto elem = keys_to_commands.find(code);
-    if (elem != keys_to_commands.end())
+
+void PlayerControllerCLI::proceed() {
+    char got_code;
+    std::cin >> got_code;
+    if (keys_to_commands[got_code] == MOVE_UP)
     {
-        return keys_to_commands[code];
+        field->move_player( -1, 0);
     }
-    else
+    else if (keys_to_commands[got_code] == MOVE_DOWN)
     {
-        return DO_NOTHING;
+        field->move_player(1, 0);
+    }
+    else if (keys_to_commands[got_code] == MOVE_LEFT)
+    {
+        field->move_player(0, -1);
+    }
+    else if (keys_to_commands[got_code] == MOVE_RIGHT)
+    {
+        field->move_player(0, 1);
+    }
+    else if (keys_to_commands[got_code] == ATTACK)
+    {
+        field->player_attack_nearest_enemy();
+    }
+    else if (keys_to_commands[got_code] == CHANGE_USING_ITEM)
+    {
+        player->change_using_item();
+    }
+    else if (keys_to_commands[got_code] == SWITCH_ITEM)
+    {
+        player->switch_to_next_item();
     }
 }
-
-

@@ -14,11 +14,11 @@
 class PlayerControllerCLI : public PlayerControllerInterface {
     map<char, Commands> keys_to_commands;
 public:
-    PlayerControllerCLI() = delete;
+    PlayerControllerCLI() = default;
     explicit PlayerControllerCLI(map<char, Commands> keys_to_commands): keys_to_commands(std::move(keys_to_commands)) {
-
     }
-    unsigned int check_for_input() override;
+
+    void proceed() override;
 };
 
 

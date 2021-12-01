@@ -9,8 +9,13 @@
 
 class PlayerControllerInterface
 {
+protected:
+    Player* player = nullptr;
+    FieldInterface* field = nullptr;
 public:
-    virtual unsigned int check_for_input() = 0;
+    virtual void proceed() = 0;
+    void set_field(FieldInterface* field) { this->field = field;}
+    void set_player(Player* player) { this->player = player; }
 };
 
 #endif //OOP_GAME_PLAYERCONTROLLER_H
