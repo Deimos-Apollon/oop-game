@@ -20,7 +20,6 @@
 #include "../../entities/Creatures/Enemies/AIStrategy/StrategiesManager/StrategiesManager.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/AIStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ApproachStrategy/ApproachStrategy.h"
-#include "../../entities/Creatures/Player/PlayerController/PlayerController.h"
 #include "../../Game/Logs/Logger/Logger.h"
 
 

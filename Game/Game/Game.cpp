@@ -22,7 +22,7 @@ void Game<Rules...>::proceed() {
     {
 
         curr_level = fields[i];
-        player_controller->set_field(curr_level);
+        player_controller.set_field(curr_level);
 
         FieldIterator fi(*dynamic_cast<Field *>(curr_level));
         FieldView lv(fi);
@@ -34,9 +34,10 @@ void Game<Rules...>::proceed() {
         {
             lv.print();
             curr_level->proceed();
+            player_controller.proceed();
 
-            player_controller->check_for_input();
             if (curr_level->player_stands_on_exit()) {
+
                 switch (i)                                   // TODO DELETE VERY BAD
                 {
                     case 0:
@@ -125,11 +126,7 @@ void Game<Rules...>::start() {
                 break;
         }
     }
-
-    if (player_controller == nullptr)
-    {
-        player_controller = new PlayerController(player);
-    }
+    player_controller.set_player(player);
     this->proceed();
 }
 
@@ -145,8 +142,6 @@ Game<Rules...>::~Game() {
     delete player;
     player = nullptr;
 
-    delete player_controller;
-    player_controller = nullptr;
 }
 
 

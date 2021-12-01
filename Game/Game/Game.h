@@ -12,6 +12,9 @@
 
 #include "../GameRules/NumberOfEnemiesDeadRules/NumberOfEnemiesDeadRules.h"
 #include "../GameRules/PickedItem/PickedItem.h"
+#include "../../Controller/PlayerControllerInterface/PlayerControllerInterface.h"
+#include "../../Controller/PlayerCommandExecutor/PlayerCommandExecutor.h"
+#include "../../Controller/PlayerControllerInterface/PlayerControllerCLI/PlayerControllerCLI.h"
 
 
 #define OOP_GAME_GAME_H
@@ -20,7 +23,7 @@
 template <class ...Rules>
 class Game{
     Player* player = nullptr;
-    PlayerController* player_controller = nullptr;
+    PlayerCommandExecutor<PlayerControllerCLI> player_controller;
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 
