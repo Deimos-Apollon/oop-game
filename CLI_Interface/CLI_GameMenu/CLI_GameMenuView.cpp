@@ -3,17 +3,17 @@
 //
 
 #include <iostream>
-#include "CLI_GameMenu.h"
+#include "CLI_GameMenuView.h"
 
 
-void CLI_GameMenu::print() {
+void CLI_GameMenuView::print() {
     std::cout << "=============Game menu==============\n"
                  "1) Start game\n"
                  "2) Settings\n"
                  "3) Exit\n";
 }
 
-void CLI_GameMenu::print_curr_settings(SettingsCLI &settings) {
+void CLI_GameMenuView::print_curr_settings(SettingsCLI &settings) {
     std::cout << "=============Game Settings==============\n";
     for (auto pair: settings.get_curr_settings())
     {

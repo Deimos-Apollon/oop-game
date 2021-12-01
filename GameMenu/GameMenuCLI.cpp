@@ -2,10 +2,10 @@
 // Created by deimos on 01.12.2021.
 //
 
-#include "GameMenu.h"
+#include "GameMenuCLI.h"
 
 
-void GameMenu::run() {
+void GameMenuCLI::run() {
     char got_code;
     bool loop_go = true;
     while(loop_go)

@@ -2,14 +2,14 @@
 // Created by deimos on 01.12.2021.
 //
 
-#ifndef OOP_GAME_CLI_GAMEMENU_H
-#define OOP_GAME_CLI_GAMEMENU_H
+#ifndef OOP_GAME_CLI_GAMEMENUVIEW_H
+#define OOP_GAME_CLI_GAMEMENUVIEW_H
 
 
 #include "../CLI_Printable/CLI_Printable.h"
 #include "../../GameMenu/Settings/SettingsCLI/SettingsCLI.h"
 
-class CLI_GameMenu : CLI_Printable{
+class CLI_GameMenuView : CLI_Printable{
     std::map<Commands, string> setting_name =
             {
                     {DO_NOTHING, "Skip your turn"},
@@ -27,4 +27,4 @@ public:
 };
 
 
-#endif //OOP_GAME_CLI_GAMEMENU_H
+#endif //OOP_GAME_CLI_GAMEMENUVIEW_H

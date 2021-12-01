@@ -3,11 +3,11 @@
 //
 
 
-#include "GameMenu/GameMenu.h"
+#include "GameMenu/GameMenuCLI.h"
 
 int main() {
 
     // TODO исправить на size_t, создать Level, который будет хранить правила и поле, и передавать туда тапл классов игры
-    GameMenu gameMenu{};
+    GameMenuCLI gameMenu{};
     gameMenu.run();
 }
