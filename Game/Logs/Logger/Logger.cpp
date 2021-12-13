@@ -7,26 +7,25 @@
 
 
 void Logger::print_console(const Entity *ent) {
-    if (using_console)
+    if (console != nullptr)
         console->write(ent);
 }
 
 void Logger::print_file(const Entity *ent) {
-    if (using_file)
-        for (auto file: files) {
+    for (auto file: files) {
+        if (file != nullptr) {
             file->write(ent);
         }
+    }
 }
 
 void Logger::set_logging_to_console() {
     console = new ConsoleStream();
-    using_console = true;
 }
 
 void Logger::set_logging_to_file(const std::string& filename) {
     auto file = new FileStream(filename);
     files.push_back(file);
-    using_file = true;
 }
 
 void Logger::reset_logging_to_file(FileStream* del_filestream) {
@@ -42,7 +41,6 @@ void Logger::reset_logging_to_file(FileStream* del_filestream) {
 void Logger::reset_logging_to_console(ConsoleStream* del_consolestream) {
     delete console;
     console = nullptr;
-    using_console = false;
 }
 
 
@@ -70,15 +68,15 @@ void Logger::proceed() {
 }
 
 void Logger::write_console(const string &data) {
-    if (using_console)
+    if (console != nullptr)
         console->write(data);
 }
 
 void Logger::write_file(const string &data) {
-    if (using_file)
-        for (auto file: files) {
+    for (auto file: files) {
+        if (file != nullptr)
             file->write(data);
-        }
+    }
 }
 
 

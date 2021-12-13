@@ -7,7 +7,7 @@
 
 int main() {
 
-    // TODO исправить на size_t, создать Level, который будет хранить правила и поле, и передавать туда тапл классов игры
-    GameMenuCLI gameMenu{};
+    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> game{PickedItem<Bow>(),  NumberOfEnemiesDeadRules<10>(10)};
+    GameMenuCLI gameMenu(game);
     gameMenu.run();
 }

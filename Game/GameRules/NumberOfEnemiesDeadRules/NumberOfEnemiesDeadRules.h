@@ -14,6 +14,7 @@ class NumberOfEnemiesDeadRules {
     size_t number = 0;
 public:
     NumberOfEnemiesDeadRules() = default;
+    NumberOfEnemiesDeadRules(size_t number) : number(number) {};
     bool tasks_complited() {
         if (field->player_stands_on_exit() && field->get_enemies_num() <= number) {
             return true;

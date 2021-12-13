@@ -37,7 +37,6 @@ void Game<Rules...>::proceed() {
             player_controller->proceed();
 
             if (curr_level->player_stands_on_exit()) {
-
                 switch (i)                                   // TODO DELETE VERY BAD
                 {
                     case 0:
@@ -54,14 +53,20 @@ void Game<Rules...>::proceed() {
                 this->finish();
             }
 
-            //system("cls");
+            std::system("clear");
         };
     }
 }
 
 template<class ... Rules>
 void Game<Rules...>::finish() {
-
+    if (player->get_curr_hp() != 0)
+    {
+        std::cout << "Поздравляем, игра пройдена!!!\n";
+    }
+    {
+        std::cout << "YOU DIED\n";
+    }
 }
 
 

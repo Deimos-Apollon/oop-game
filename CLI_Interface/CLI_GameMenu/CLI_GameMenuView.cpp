@@ -15,8 +15,9 @@ void CLI_GameMenuView::print() {
 
 void CLI_GameMenuView::print_curr_settings(SettingsCLI &settings) {
     std::cout << "=============Game Settings==============\n";
+
     for (auto pair: settings.get_curr_settings())
     {
-        std::cout << setting_name[pair.first] << " : " << pair.second << '\n';
+        std::cout << "#" << pair.first << " " << setting_name[pair.first] << " : " << pair.second << '\n';
     }
 }

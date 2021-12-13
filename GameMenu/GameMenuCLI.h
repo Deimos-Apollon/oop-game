@@ -14,9 +14,10 @@
 #include "/home/deimos/CLionProjects/oop-game/Game/GameRules/NumberOfEnemiesDeadRules/NumberOfEnemiesDeadRules.cpp"
 #include "Settings/SettingsCLI/SettingsCLI.h"
 #include "../CLI_Interface/CLI_GameMenu/CLI_GameMenuView.h"
+#include "../Game/CommandExecutor.h"
 
 class GameMenuCLI {
-    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> game{PickedItem<Bow>(),  NumberOfEnemiesDeadRules<10>()};
+    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> &game;
     PlayerControllerCLI player_controller;
     SettingsCLI settings_CLI;
     enum window_showing { MAIN_MENU, SETTING };
@@ -26,8 +27,9 @@ class GameMenuCLI {
 private:
     void params_init();
     void switch_to_next();
+    void game_init();
 public:
-    GameMenuCLI(){};
+    explicit GameMenuCLI(Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>& game): game(game) {};
     void run();
 };
 

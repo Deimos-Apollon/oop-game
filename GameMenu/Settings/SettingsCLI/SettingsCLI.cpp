@@ -5,7 +5,7 @@
 #include "SettingsCLI.h"
 
 SettingsCLI::SettingsCLI() {
-    keys_to_commands = {
+    commands_to_keys = {
         {DO_NOTHING, ' '},
         {MOVE_LEFT, 'a'},
         {MOVE_RIGHT, 'd'},
@@ -18,14 +18,16 @@ SettingsCLI::SettingsCLI() {
 }
 
 void SettingsCLI::change_key(Commands command, char new_value) {
-    keys_to_commands[command] = new_value;
+    bool not_exist = true;
+    for (auto command_to_key: commands_to_keys)
+    {
+        if (command_to_key.second == new_value)
+        {
+            not_exist = false;
+        }
+    }
+    if (not_exist) {
+        commands_to_keys[command] = new_value;
+    }
 }
 
-map<char, Commands> SettingsCLI::get_key_bounds() {
-    map<char, Commands> ret = {};
-    for (auto key: keys_to_commands)
-    {
-        ret[key.second] = key.first;
-    }
-    return ret;
-}

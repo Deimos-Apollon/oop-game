@@ -22,7 +22,7 @@
 template <class ...Rules>
 class Game{
     Player* player = nullptr;
-    PlayerControllerInterface* player_controller;
+    PlayerControllerInterface* player_controller = nullptr;
     FieldInterface** fields = nullptr;
     unsigned int fields_num = 0;
 

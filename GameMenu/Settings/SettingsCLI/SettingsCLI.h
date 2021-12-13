@@ -12,12 +12,14 @@
 using namespace  std;
 
 class SettingsCLI : public SettingsInterface{
-    map<Commands, char> keys_to_commands;
+    map<Commands, char> commands_to_keys;
 public:
     SettingsCLI();
     void change_key(Commands command, char new_value);
-    map<char, Commands> get_key_bounds();
-    map<Commands, char> get_curr_settings() { return keys_to_commands; };
+    // removed map<char, Commands> get_key_bounds();
+    map<Commands, char> get_curr_settings() { return commands_to_keys; };
+    // TODO refactor map<char, Commands>, it is not necessary
+    // TODO delete redundant methods and classes
 };
 
 

@@ -15,9 +15,10 @@ class PlayerControllerCLI : public PlayerControllerInterface {
     map<char, Commands> keys_to_commands;
 public:
     PlayerControllerCLI() = default;
-    explicit PlayerControllerCLI(map<char, Commands> keys_to_commands): keys_to_commands(std::move(keys_to_commands)) {
+    explicit PlayerControllerCLI(const map<Commands, char>& commands_to_keys) {
+        for (auto pair: commands_to_keys)
+            keys_to_commands[pair.second] = pair.first;
     }
-
     void proceed() override;
 };
 

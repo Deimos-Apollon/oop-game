@@ -19,9 +19,8 @@ class Logger {
 
     Observer observer;
     vector <FileStream*> files = {};
-    ConsoleStream* console = nullptr;
-    bool using_console = false;
-    bool using_file = false;
+    ConsoleStream* console  = nullptr;
+
 public:
 
     void print_console(const Entity* ent);
