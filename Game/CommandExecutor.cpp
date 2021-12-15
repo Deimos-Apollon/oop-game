@@ -13,6 +13,7 @@ CommandExecutor::CommandExecutor(Player *player, FieldInterface *field) : player
             {ATTACK, [this, &field] {field->player_attack_nearest_enemy();} },
             {CHANGE_USING_ITEM, [this, &player] { player->change_using_item();} },
             {SWITCH_ITEM, [this, &player] {player->switch_to_next_item();} },
+            {SAVE_GAME, [this, field] {gameSaverLoaderJson.save_game(field);}}
     };
 }
 
@@ -30,6 +31,7 @@ void CommandExecutor::set_field(FieldInterface *new_field) {
     method_to_call[MOVE_DOWN] = [this] {field->move_player(1, 0);};
     method_to_call[MOVE_UP] = [this] {field->move_player(-1, 0);};
     method_to_call[ATTACK] = [this] {field->player_attack_nearest_enemy();};
+    method_to_call[SAVE_GAME] = [this] {gameSaverLoaderJson.save_game(field);};
 }
 
 void CommandExecutor::set_player(Player *new_player) {

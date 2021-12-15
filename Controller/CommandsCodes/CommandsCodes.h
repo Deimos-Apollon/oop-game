@@ -16,6 +16,7 @@ enum Commands {
     ATTACK,
     CHANGE_USING_ITEM,
     SWITCH_ITEM,
+    SAVE_GAME
 };
 
 const size_t Commands_length = 8;

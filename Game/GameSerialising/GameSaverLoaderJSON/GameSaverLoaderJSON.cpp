@@ -8,18 +8,17 @@
 #include "GameSaverLoaderJSON.h"
 
 
-void GameSaverLoaderJSON::load_game(const string &filename, const vector<FieldInterface *> &field) {
+void GameSaverLoaderJSON::load_game(const vector<FieldInterface *> &field, const string &filename) {
 
 }
 
-void GameSaverLoaderJSON::save_game(const string &filename, JSONSaveableInterface *save_objects) {
+void GameSaverLoaderJSON::save_game(FieldInterface* field, const string &filename) {
     std::ofstream file(filename);
     if (file.is_open())
     {
-        json json_info = {};
-        json_info.push_back(save_objects->get_json_repr());
-        file << std::setw(4) << json_info << std::endl;
-    } else
-        std::cout << "error opening file\n";
+        json field_view;
+        field_view = field->get_json_repr();
+        file << std::setw(4) << field_view << std::endl;
+    }
     file.close();
 }

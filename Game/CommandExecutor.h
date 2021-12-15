@@ -11,10 +11,12 @@
 #include "../entities/Creatures/Player/Player.h"
 #include "../field/FieldInterface/FieldInterface.h"
 #include "../Controller/CommandsCodes/CommandsCodes.h"
+#include "GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.h"
 
 class CommandExecutor {
     Player* player = nullptr;
     FieldInterface* field = nullptr;
+    GameSaverLoaderJSON gameSaverLoaderJson;
     std::map <Commands, std::function<void()>> method_to_call;
 public:
     explicit CommandExecutor(Player* player = nullptr, FieldInterface* field = nullptr);

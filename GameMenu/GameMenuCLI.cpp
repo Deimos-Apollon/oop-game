@@ -20,6 +20,13 @@ void GameMenuCLI::run() {
                 case '1':
                     this->game_init();
                     game.start();
+                    /*
+                     while (game.was_load_new())
+                     {
+                        game = game.load_new();
+                        game.start()
+                     }
+                     */
                     loop_go = false;
                     break;
                 case '2':
