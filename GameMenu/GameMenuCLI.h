@@ -18,6 +18,8 @@
 
 class GameMenuCLI {
     Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> &game;
+    GameSaverLoaderJSON game_saver_loader_json;
+
     PlayerControllerCLI player_controller;
     SettingsCLI settings_CLI;
     enum window_showing { MAIN_MENU, SETTING };

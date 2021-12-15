@@ -12,6 +12,7 @@
 class Axe : public MeleeDamageItem{
 public:
     explicit Axe(unsigned int range=1, unsigned int damage=10, unsigned int usages=50);
+    nlohmann::json get_json_repr() const override;
 };
 
 

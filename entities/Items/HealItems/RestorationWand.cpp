@@ -19,3 +19,13 @@ void RestorationWand::heal(Creature *creature) {
 RestorationWand::RestorationWand(unsigned int heal_power, unsigned int usages) : Item(heal_power, usages) {
 
 }
+
+nlohmann::json RestorationWand::get_json_repr() const {
+    nlohmann::json item_view = {
+            {"type", "RestorationWand"},
+            {"range", range},
+            {"heal_power", heal_power},
+            {"usages", usages},
+    };
+    return item_view;
+}

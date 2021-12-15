@@ -8,3 +8,15 @@ MageHealer::MageHealer(unsigned int hp, int armor, unsigned int damage, unsigned
         Enemy(hp, armor, damage, attack_range) {
 
 }
+
+nlohmann::json MageHealer::get_json_repr() const {
+    nlohmann::json enemy_view = {
+            {"type", "MageHealer"},
+            {"max_hp", max_hp},
+            {"curr_hp", curr_hp},
+            {"armor", armor},
+            {"base_attack_damage", base_attack_damage},
+            {"attack_range", attack_range},
+    };
+    return enemy_view;
+}

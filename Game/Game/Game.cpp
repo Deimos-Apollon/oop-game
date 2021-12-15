@@ -8,8 +8,8 @@
 
 
 template<class ... Rules>
-Game<Rules...>::Game(Player *player, FieldInterface **fields, unsigned int fields_num) :
-            player(player), fields(fields), fields_num(fields_num){
+Game<Rules...>::Game(Player *player, std::vector<FieldInterface*> fields, unsigned int fields_num) :
+            player(player), fields(std::move(fields)), fields_num(fields_num){
 
 }
 
@@ -54,6 +54,7 @@ void Game<Rules...>::proceed() {
             }
 
             std::system("clear");
+
         };
     }
 }
@@ -82,10 +83,8 @@ void Game<Rules...>::start() {
          player = new Player(50,2,5);
          logger.add_subscriber(player);
      }
-     if (fields == nullptr)  // TODO delete, this is just demonstration
+     if (fields.empty())  // TODO delete, this is just demonstration
      {
-         fields = new FieldInterface*[2];
-
          FieldBuilder fb(logger);
          fb.create_cells(8, 8);
          fb.add_player(player);
@@ -96,7 +95,7 @@ void Game<Rules...>::start() {
          //fb.add_enemy_MageHealer();
 
          Field* field = fb.get_result();
-         fields[0] = field;
+         fields.push_back(field);
          fields_num++;
 
          fb.create_cells(20, 30, 10);
@@ -112,7 +111,7 @@ void Game<Rules...>::start() {
          fb.add_enemy_MageHealer();
          fb.add_enemy_MageHealer();
          Field* field1 = fb.get_result();
-         fields[1] = field1;
+         fields.push_back(field1);
          fields_num++;
      }
 
@@ -141,8 +140,6 @@ Game<Rules...>::~Game() {
     {
         delete fields[i];
     }
-    delete [] fields;
-    fields = nullptr;
 
     delete player;
     player = nullptr;

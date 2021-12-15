@@ -22,6 +22,7 @@ public:
 
     unsigned int get_range() const { return range; }
     unsigned int get_usages() const { return usages; }
+
 };
 
 

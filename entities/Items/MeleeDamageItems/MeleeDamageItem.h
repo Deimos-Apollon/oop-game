@@ -8,6 +8,7 @@
 
 
 class MeleeDamageItem : public Item {
+protected:
     unsigned int damage;
     void attack(Creature *creature) override;
 public:

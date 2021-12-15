@@ -11,6 +11,7 @@ public:
     ExitCell(unsigned int x, unsigned int y) : Cell(x, y){};
     ~ExitCell() override = default;
     virtual Cell* clone();
+    nlohmann::json get_json_repr() const override;
 };
 
 

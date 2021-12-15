@@ -12,11 +12,14 @@
 
 
 
-Field::Field(Player *player, pair <unsigned int, unsigned int> player_coords, map<Enemy *, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
+Field::Field(Player *player, size_t number, pair <unsigned int, unsigned int> player_coords, map<Enemy *,
+             pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
              map<Item *, pair<unsigned int, unsigned int>> items, Cell ***cells, Cell *enter_cell, Cell *exit_cell,
              unsigned int rows, unsigned int cols, Logger& logger):
-             player(player), player_coords(std::move(player_coords)), enemies(std::move(enemies)), enemies_num(enemies_num), items(std::move(items)),
-             cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2), logger(logger)
+             player(player), number(number), player_coords(std::move(player_coords)), enemies(std::move(enemies)),
+             enemies_num(enemies_num), items(std::move(items)),
+             cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2),
+             logger(logger)
 {
 
 }
@@ -160,7 +163,7 @@ void Field::proceed() {
     logger.proceed();
 }
 
-const Cell *const Field::get_cell(unsigned int row, unsigned int col) {
+const Cell *const Field::get_cell(unsigned int row, unsigned int col) const{
     if (row < rows && col < cols) return cells[row][col];
     else return nullptr;
 }
@@ -277,5 +280,30 @@ bool Field::player_stands_on_exit() {
 
 bool Field::player_is_dead() {
     return player->get_curr_hp() == 0;
+}
+
+nlohmann::json Field::get_json_repr() const {
+
+    nlohmann::json cells_info;
+    FieldIterator fi(*this);
+    auto curr_cell = fi.next();
+    while (curr_cell)
+    {
+            cells_info.push_back(curr_cell->get_json_repr());
+        curr_cell = fi.next();
+    }
+
+    nlohmann::json field_info =
+    {
+            {"field",
+                 {
+                         {"number", number},
+                         {"rows", rows},
+                         {"cols", cols},
+                         {"cells", cells_info}
+                 }
+            }
+    };
+    return field_info;
 }
 

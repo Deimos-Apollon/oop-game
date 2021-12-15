@@ -39,3 +39,16 @@ void Cell::attach_item_to_player(Player *player, map<Item *, pair<unsigned int, 
     this->has_item = false;
 }
 
+nlohmann::json Cell::get_json_repr() const{
+    nlohmann::json cell_repr = {};
+    cell_repr["type"] =  "Cell";
+    cell_repr["has_entity"] = this->entity != nullptr;
+    cell_repr["has_item"] = this->has_item;
+
+    if (this->entity != nullptr)
+    {
+        cell_repr["entity"] = entity->get_json_repr();
+    }
+    return cell_repr;
+}
+

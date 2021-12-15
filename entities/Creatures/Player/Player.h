@@ -34,6 +34,7 @@ public:
     bool is_item_healing() { return !current_item->is_damaging(); }
     void attack(Creature *other_creature, int drow,  int dcol) override;
 
+    nlohmann::json get_json_repr() const override;
 };
 
 

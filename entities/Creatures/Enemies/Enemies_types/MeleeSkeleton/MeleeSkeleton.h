@@ -12,6 +12,7 @@
 class MeleeSkeleton : public Enemy {
 public:
     explicit MeleeSkeleton(unsigned int hp = 15, int armor = 0, unsigned int damage = 5, unsigned int attack_range = 1);
+    nlohmann::json get_json_repr() const override;
 };
 
 

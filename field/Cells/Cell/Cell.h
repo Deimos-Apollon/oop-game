@@ -6,11 +6,12 @@
 #include <iostream>
 #include "../../../entities/Items/Item/Item.h"
 #include "../../../entities/Creatures/Player/Player.h"
+#include "../../../Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h"
 
 #include <map>
 #define OOP_GAME_CELL_H
 
-class Cell {
+class Cell : JSONSaveableInterface {
 protected:
     unsigned int row;
     unsigned int col;
@@ -38,6 +39,7 @@ public:
     void attach_item_to_player(Player* player, map <Item*, pair<unsigned int, unsigned int>> &items);
     virtual Cell* clone();
 
+    nlohmann::json get_json_repr() const override;
 };
 
 

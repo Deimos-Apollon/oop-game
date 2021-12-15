@@ -21,6 +21,7 @@
 #include "../../entities/Creatures/Enemies/AIStrategy/AIStrategy.h"
 #include "../../entities/Creatures/Enemies/AIStrategy/ApproachStrategy/ApproachStrategy.h"
 #include "../../Game/Logs/Logger/Logger.h"
+#include "../../Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h"
 
 
 #define OOP_GAME_FIELD_H
@@ -31,6 +32,7 @@ using namespace std;
 class Field : public FieldInterface{
 protected:
 
+    size_t number = 0;
     unsigned int rows = 0;
     unsigned int cols = 0;
 
@@ -51,7 +53,7 @@ protected:
 
 
 public:
-    Field(Player* player, pair <unsigned int, unsigned int> player_coords, map <Enemy*, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
+    Field(Player* player, size_t number, pair <unsigned int, unsigned int> player_coords, map <Enemy*, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
           map <Item*, pair<unsigned int, unsigned int>> items, Cell*** cells, Cell* enter_cell, Cell* exit_cell,
           unsigned int rows, unsigned int cols, Logger& logger);
 
@@ -67,7 +69,7 @@ public:
 
     unsigned int get_rows() const { return rows; }
     unsigned int get_cols() const { return cols; }
-    const Cell* const get_cell(unsigned int row, unsigned int col);
+    const Cell* const get_cell(unsigned int row, unsigned int col) const;
     void delete_enemy(Enemy* enemy);
 
     void move_player(int drow,  int dcol) override;
@@ -84,6 +86,8 @@ public:
     bool player_stands_on_exit() override;
     bool player_is_dead() override;
     const Item *const get_players_item() override { return player->get_item(); };
+
+    nlohmann::json get_json_repr() const override;
 };
 
 

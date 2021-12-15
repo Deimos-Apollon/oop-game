@@ -65,3 +65,21 @@ void Player::switch_to_next_item() {
     }
 }
 
+nlohmann::json Player::get_json_repr() const {
+    nlohmann::json player_view = {
+            {"type", "Player"},
+            {"max_hp", max_hp},
+            {"curr_hp", curr_hp},
+            {"armor", armor},
+            {"base_attack_damage", base_attack_damage},
+            {"attack_range", attack_range},
+            {"using_item", using_item},
+            {"items", {}}
+    };
+    for (auto item: items)
+    {
+        player_view["items"].push_back(item->get_json_repr());
+    }
+    return player_view;
+}
+

@@ -5,6 +5,7 @@
 #ifndef OOP_GAME_PLAYERCONTROLLER_H
 #include "../../field/FieldInterface/FieldInterface.h"
 #include "../../Game/CommandExecutor.h"
+#include "../../Game/GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.h"
 
 #define OOP_GAME_PLAYERCONTROLLER_H
 
@@ -12,10 +13,12 @@ class PlayerControllerInterface
 {
 protected:
     CommandExecutor command_executor;
+    GameSaverLoaderJSON* gameSaverLoaderJson = nullptr;
 public:
     virtual void proceed() = 0;
     void set_field(FieldInterface* field) { command_executor.set_field(field); }
     void set_player(Player* player) { command_executor.set_player(player); }
+    void setGameSaverLoaderJSON(GameSaverLoaderJSON* new_game_saver) {gameSaverLoaderJson = new_game_saver; }
 };
 
 #endif //OOP_GAME_PLAYERCONTROLLER_H

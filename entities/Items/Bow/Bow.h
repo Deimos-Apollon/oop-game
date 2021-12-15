@@ -13,6 +13,7 @@ public:
     Bow(unsigned int range=5, unsigned int damage=10, unsigned int usages=50);
     bool is_damaging() const override;
     void interact(Creature *creature) override;
+    nlohmann::json get_json_repr() const override;
 };
 
 

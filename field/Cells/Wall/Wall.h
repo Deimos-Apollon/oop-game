@@ -12,6 +12,7 @@ public:
     Wall(unsigned x, unsigned y): Cell(x, y, false){};
     ~Wall() override = default;
     Cell* clone() override;
+    nlohmann::json get_json_repr() const override;
 };
 
 

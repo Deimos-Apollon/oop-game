@@ -19,6 +19,8 @@ class FieldBuilder {
     unsigned int rows = 0;
     unsigned int cols = 0;
     unsigned int walls_percentage = 30; // 0 to 90
+    size_t number = 0;
+
     Cell*** cells = nullptr;
     Cell* enter_cell = nullptr;
     Cell* exit_cell = nullptr;
@@ -48,7 +50,9 @@ private:
 public:
     explicit FieldBuilder(Logger& logger);
 
+
     void create_cells(unsigned int rows, unsigned int cols, unsigned  int walls_percentage = 30);
+    void set_number(size_t number);
 
     void add_player(Player* player);
 

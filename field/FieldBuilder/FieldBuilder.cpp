@@ -127,6 +127,11 @@ void FieldBuilder::create_cells(unsigned int new_rows, unsigned int new_cols, un
     }
 }
 
+void FieldBuilder::set_number(size_t number) {
+    this->number = number;
+}
+
+
 void FieldBuilder::add_enemy(Enemy *enemy, unsigned int row, unsigned int col) {
     if (row == 0 || col == 0)
     {
@@ -220,9 +225,10 @@ void FieldBuilder::clear() {
 Field *FieldBuilder::get_result() {
     Field* field = nullptr;
     if (player != nullptr && cells != nullptr) {
-        field = new Field(player, player_coords, enemies, enemies_num, items, cells, enter_cell, exit_cell, rows, cols, logger);
+        field = new Field(player, number, player_coords, enemies, enemies_num, items, cells, enter_cell, exit_cell, rows, cols, logger);
     }
     clear();
     return field;
 }
+
 

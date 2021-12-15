@@ -8,8 +8,9 @@
 
 #include "../../entities/Creatures/Player/Player.h"
 #include "../../entities/Creatures/Enemies/Enemy/Enemy.h"
+#include "../../Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h"
 
-class FieldInterface {
+class FieldInterface : public JSONSaveableInterface{
 public:
     virtual ~FieldInterface() = default;
 
