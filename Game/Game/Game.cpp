@@ -90,6 +90,7 @@ void Game<Rules...>::start() {
          fb.add_player(player);
          fb.add_RestorationWand();
          fb.add_Bow();
+         fb.set_number(0);
          //fb.add_enemy_MeleeSkeleton();
          //fb.add_enemy_ArcherSkeleton();
          //fb.add_enemy_MageHealer();
@@ -110,6 +111,7 @@ void Game<Rules...>::start() {
          fb.add_enemy_ArcherSkeleton();
          fb.add_enemy_MageHealer();
          fb.add_enemy_MageHealer();
+         fb.set_number(1);
          Field* field1 = fb.get_result();
          fields.push_back(field1);
          fields_num++;
