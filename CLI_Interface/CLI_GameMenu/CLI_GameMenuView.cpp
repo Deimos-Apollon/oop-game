@@ -9,8 +9,9 @@
 void CLI_GameMenuView::print() {
     std::cout << "=============Game menu==============\n"
                  "1) Start game\n"
-                 "2) Settings\n"
-                 "3) Exit\n";
+                 "2) Load game\n"
+                 "3) Settings\n"
+                 "4) Exit\n";
 }
 
 void CLI_GameMenuView::print_curr_settings(SettingsCLI &settings) {

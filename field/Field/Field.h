@@ -48,19 +48,17 @@ protected:
     unsigned int enemies_num = 0;
 
     StrategiesManager strategies_manager;
-    Logger& logger;
-
-
+    Logger* logger = nullptr;
 
 public:
     Field(Player* player, size_t number, pair <unsigned int, unsigned int> player_coords, map <Enemy*, pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
           map <Item*, pair<unsigned int, unsigned int>> items, Cell*** cells, Cell* enter_cell, Cell* exit_cell,
-          unsigned int rows, unsigned int cols, Logger& logger);
+          unsigned int rows, unsigned int cols, Logger* logger);
 
     Field(Field& other, Logger& logger);                            // TODO CHANGE
     Field& operator=(Field& other);
     Field(Field&& other) noexcept ;
-    Field& operator=(Field&& other) noexcept ;
+    Field& operator=(Field&& other) noexcept;
     ~Field() override;
 
     void start() override;
@@ -88,6 +86,9 @@ public:
     const Item *const get_players_item() override { return player->get_item(); };
 
     nlohmann::json get_json_repr() const override;
+
+    size_t get_number() override { return number; };
+    void set_logger(Logger* new_logger) override { logger = new_logger; }
 };
 
 

@@ -19,20 +19,67 @@ void GameMenuCLI::run() {
             switch(got_code) {
                 case '1':
                     this->game_init();
-                    game.start();
-                    /*
-                     while (game.was_load_new())
-                     {
-                        game = game.load_new();
-                        game.start()
-                     }
-                     */
+                    game->start();
+
+                    while (game->get_need_to_load_new()) {
+                        FieldInterface* loaded_level = nullptr;
+                        Player* loaded_player = nullptr;
+                        bool valid = game_saver_loader_json.load_game(loaded_level, loaded_player);
+                        if (valid)
+                        {
+                            size_t current_level = loaded_level->get_number();
+
+                            delete game;
+                            game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+                                    (loaded_player, loaded_level, current_level);
+
+                            this->game_init();
+                            game->start();
+                        }
+                    }
                     loop_go = false;
                     break;
                 case '2':
-                    window = SETTING;
+                    if (game_saver_loader_json.can_load_file())
+                    {
+                        FieldInterface* loaded_level = nullptr;
+                        Player* loaded_player = nullptr;
+
+                        game_saver_loader_json.load_game(loaded_level, loaded_player);
+                        size_t current_level = loaded_level->get_number();
+
+                        delete game;
+                        game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+                                (loaded_player, loaded_level, current_level);
+
+                        this->game_init();
+                        game->start();
+
+                        while (game->get_need_to_load_new()) {
+                            FieldInterface* loaded_level = nullptr;
+                            Player* loaded_player = nullptr;
+                            bool valid = game_saver_loader_json.load_game(loaded_level, loaded_player);
+                            if (valid)
+                            {
+                                size_t current_level = loaded_level->get_number();
+
+                                delete game;
+                                game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+                                        (loaded_player, loaded_level, current_level);
+
+                                this->game_init();
+                                game->start();
+                            }
+                        }
+                    } else
+                    {
+                        std::cout << "Не получается загрузить сохранение!\n";
+                    }
                     break;
                 case '3':
+                    window = SETTING;
+                    break;
+                case '4':
                     loop_go = false;
                     break;
             }
@@ -67,5 +114,5 @@ void GameMenuCLI::run() {
 
 void GameMenuCLI::game_init() {
     player_controller = PlayerControllerCLI(settings_CLI.get_curr_settings());
-    game.setPlayerController(&player_controller);
+    game->setPlayerController(&player_controller);
 }

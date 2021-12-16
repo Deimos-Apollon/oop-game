@@ -13,7 +13,7 @@ CommandExecutor::CommandExecutor(Player *player, FieldInterface *field) : player
             {ATTACK, [this, &field] {field->player_attack_nearest_enemy();} },
             {CHANGE_USING_ITEM, [this, &player] { player->change_using_item();} },
             {SWITCH_ITEM, [this, &player] {player->switch_to_next_item();} },
-            {SAVE_GAME, [this, field] {gameSaverLoaderJson.save_game(field);}}
+            {SAVE_GAME, [this, field] {gameSaverLoaderJson.save_game(field);}},
     };
 }
 
@@ -24,7 +24,7 @@ void CommandExecutor::execute_command(Commands command) {
     }
 }
 
-void CommandExecutor::set_field(FieldInterface *new_field) {
+void CommandExecutor::set_field(FieldInterface *new_field, bool& need_to_load_level) {
     field = new_field;
     method_to_call[MOVE_RIGHT] = [this] {field->move_player(0, 1);};
     method_to_call[MOVE_LEFT] = [this] {field->move_player(0, -1);};
@@ -32,6 +32,8 @@ void CommandExecutor::set_field(FieldInterface *new_field) {
     method_to_call[MOVE_UP] = [this] {field->move_player(-1, 0);};
     method_to_call[ATTACK] = [this] {field->player_attack_nearest_enemy();};
     method_to_call[SAVE_GAME] = [this] {gameSaverLoaderJson.save_game(field);};
+    method_to_call[LOAD_GAME] = [this, &need_to_load_level]
+            {need_to_load_level = gameSaverLoaderJson.can_load_file();};
 }
 
 void CommandExecutor::set_player(Player *new_player) {

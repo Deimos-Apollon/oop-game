@@ -17,7 +17,9 @@
 #include "../Game/CommandExecutor.h"
 
 class GameMenuCLI {
-    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> &game;
+    Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>> *game =
+            new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+            {PickedItem<Bow>(),  NumberOfEnemiesDeadRules<10>(10)};;
     GameSaverLoaderJSON game_saver_loader_json;
 
     PlayerControllerCLI player_controller;
@@ -27,11 +29,10 @@ class GameMenuCLI {
 
     CLI_GameMenuView game_menu_view;
 private:
-    void params_init();
-    void switch_to_next();
+
     void game_init();
 public:
-    explicit GameMenuCLI(Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>& game): game(game) {};
+    explicit GameMenuCLI() {};
     void run();
 };
 

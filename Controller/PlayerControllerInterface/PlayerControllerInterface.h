@@ -16,7 +16,8 @@ protected:
     GameSaverLoaderJSON* gameSaverLoaderJson = nullptr;
 public:
     virtual void proceed() = 0;
-    void set_field(FieldInterface* field) { command_executor.set_field(field); }
+    void set_field(FieldInterface* field, bool& need_to_load_level)
+            { command_executor.set_field(field, need_to_load_level); }
     void set_player(Player* player) { command_executor.set_player(player); }
     void setGameSaverLoaderJSON(GameSaverLoaderJSON* new_game_saver) {gameSaverLoaderJson = new_game_saver; }
 };

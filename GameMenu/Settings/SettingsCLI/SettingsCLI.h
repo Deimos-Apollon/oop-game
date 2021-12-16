@@ -11,7 +11,7 @@
 #include <map>
 using namespace  std;
 
-class SettingsCLI : public SettingsInterface{
+class SettingsCLI : public SettingsInterface {
     map<Commands, char> commands_to_keys;
 public:
     SettingsCLI();

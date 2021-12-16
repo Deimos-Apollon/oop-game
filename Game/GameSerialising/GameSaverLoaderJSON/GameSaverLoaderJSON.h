@@ -12,8 +12,9 @@
 class GameSaverLoaderJSON {
     using json = nlohmann::json;
 public:
-    void load_game(const std::vector<FieldInterface *> &field, const std::string& filename = "testing_json.json");
+    bool load_game(FieldInterface* &field, Player* &player, const std::string& filename = "testing_json.json");
     void save_game(FieldInterface *field, const std::string& filename = "testing_json.json");
+    bool can_load_file(const std::string& filename = "testing_json.json");
 };
 
 #endif //OOP_GAME_GAMESAVERLOADERJSON_H

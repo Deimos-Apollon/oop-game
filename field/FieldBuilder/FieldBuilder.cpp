@@ -4,6 +4,8 @@
 
 #include "FieldBuilder.h"
 
+#include <utility>
+
 
 
 void FieldBuilder::create_path(unsigned int row_ent, unsigned int col_ent, unsigned int row_exit, unsigned int col_exit) {
@@ -28,9 +30,6 @@ void FieldBuilder::create_path(unsigned int row_ent, unsigned int col_ent, unsig
     }
 }
 
-FieldBuilder::FieldBuilder(Logger &logger) : logger(logger){
-}
-
 Cell *FieldBuilder::get_random_vacant_cell() {
     auto row = randomer.get_random_int(1, rows-1);
     auto col = randomer.get_random_int(1, cols-1);
@@ -47,8 +46,8 @@ void FieldBuilder::create_cells(unsigned int new_rows, unsigned int new_cols, un
     auto cols_with_walls = new_cols + 2;
     cells = new Cell**[rows_with_walls];
 
-    cols = new_cols;
-    rows = new_rows;
+    cols = new_cols+2;
+    rows = new_rows+2;
     if (new_rows == 1 && new_cols == 1)
     {
         for (unsigned int i = 0; i < rows_with_walls; ++i) {
@@ -178,21 +177,32 @@ void FieldBuilder::add_item(Item *item, unsigned int row, unsigned int col) {
 
 void FieldBuilder::add_player(Player *player) {
     this->player = player;
-    enter_cell->set_creature(this->player);
-    enter_cell->set_is_vacant(false);
-    player_coords = {enter_cell->get_row(), enter_cell->get_col()};
+    if (enter_cell != nullptr) {
+        enter_cell->set_creature(this->player);
+        enter_cell->set_is_vacant(false);
+        player_coords = {enter_cell->get_row(), enter_cell->get_col()};
+    }
 }
 
-void FieldBuilder::add_enemy_MeleeSkeleton(unsigned int row, unsigned int col) {
-    add_enemy(new MeleeSkeleton(), row, col);
+void FieldBuilder::add_enemy_MeleeSkeleton(unsigned int row, unsigned int col,  MeleeSkeleton* ms) {
+    if (ms == nullptr)
+        add_enemy(new MeleeSkeleton(), row, col);
+    else
+        add_enemy(ms, row, col);
 }
 
-void FieldBuilder::add_enemy_ArcherSkeleton(unsigned int row, unsigned int col) {
-    add_enemy(new ArcherSkeleton(), row, col);
+void FieldBuilder::add_enemy_ArcherSkeleton(unsigned int row, unsigned int col, ArcherSkeleton* as) {
+    if (as == nullptr)
+        add_enemy(new ArcherSkeleton(), row, col);
+    else
+        add_enemy(as, row, col);
 }
 
-void FieldBuilder::add_enemy_MageHealer(unsigned int row, unsigned int col) {
-    add_enemy(new MageHealer(), row, col);
+void FieldBuilder::add_enemy_MageHealer(unsigned int row, unsigned int col, MageHealer* mh) {
+    if (mh == nullptr)
+        add_enemy(new MageHealer(), row, col);
+    else
+        add_enemy(mh, row, col);
 }
 
 void FieldBuilder::add_Axe(unsigned int row, unsigned int col) {
@@ -225,10 +235,49 @@ void FieldBuilder::clear() {
 Field *FieldBuilder::get_result() {
     Field* field = nullptr;
     if (player != nullptr && cells != nullptr) {
-        field = new Field(player, number, player_coords, enemies, enemies_num, items, cells, enter_cell, exit_cell, rows, cols, logger);
+        field = new Field(player, number, player_coords, enemies,
+                          enemies_num, items, cells, enter_cell, exit_cell, rows-2, cols-2, logger);
     }
     clear();
     return field;
 }
+
+void FieldBuilder::set_logger(Logger *new_logger) {
+    logger = new_logger;
+}
+
+void FieldBuilder::add_cells(std::vector<Cell *> &cells, unsigned int rows, unsigned int cols) {
+    Cell*** new_cells = new Cell**[rows];
+    for (size_t row = 0; row < rows; ++row) {
+        new_cells[row] = new Cell*[cols];
+        for (size_t col = 0; col < cols; ++col)
+        {
+            size_t index = row*cols + col;
+            new_cells[row][col] = cells[index];
+            if (typeid(*new_cells[row][col]) == typeid(EnterCell))
+            {
+                enter_cell = new_cells[row][col];
+            }
+            else if (typeid(*new_cells[row][col]) == typeid(ExitCell))
+            {
+                exit_cell = new_cells[row][col];
+            }
+        }
+    }
+    this->cells = new_cells;
+    this->rows = rows;
+    this->cols = cols;
+}
+
+void FieldBuilder::add_player(Player *player, unsigned int player_row, unsigned int player_col) {
+    this->player = player;
+    player_coords = {player_row, player_col};
+}
+
+void FieldBuilder::add_enemies(map<Enemy *, pair<unsigned int, unsigned int>> new_enemies) {
+    this->enemies = std::move(new_enemies);
+}
+
+
 
 

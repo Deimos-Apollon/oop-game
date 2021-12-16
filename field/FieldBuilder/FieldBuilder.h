@@ -32,7 +32,7 @@ class FieldBuilder {
     map <Item*, pair<unsigned int, unsigned int>> items = {};
     unsigned int enemies_num = 0;
 
-    Logger& logger;
+    Logger* logger = nullptr;
     Randomer randomer;
 private:
     void create_path(unsigned x_ent, unsigned y_ent,
@@ -48,22 +48,26 @@ private:
 
     void clear();
 public:
-    explicit FieldBuilder(Logger& logger);
-
 
     void create_cells(unsigned int rows, unsigned int cols, unsigned  int walls_percentage = 30);
+    void add_cells(std::vector <Cell*> &cells, unsigned int rows, unsigned int cols);
+
     void set_number(size_t number);
 
     void add_player(Player* player);
 
-    void add_enemy_MeleeSkeleton(unsigned int row = 0, unsigned int col = 0);
-    void add_enemy_ArcherSkeleton(unsigned int row = 0, unsigned int col = 0);
-    void add_enemy_MageHealer(unsigned int row = 0, unsigned int col = 0);
+    void add_player(Player* player, unsigned int player_row, unsigned int player_col);
+
+    void add_enemies( map <Enemy*, pair<unsigned int, unsigned int>> new_enemies);
+    void add_enemy_MeleeSkeleton(unsigned int row = 0, unsigned int col = 0, MeleeSkeleton* ms = nullptr);
+    void add_enemy_ArcherSkeleton(unsigned int row = 0, unsigned int col = 0, ArcherSkeleton* as = nullptr);
+    void add_enemy_MageHealer(unsigned int row = 0, unsigned int col = 0, MageHealer* mh = nullptr);
 
     void add_Axe(unsigned int row = 0, unsigned int col = 0);
     void add_RestorationWand(unsigned int row = 0, unsigned int col = 0);
     void add_Bow(unsigned int row = 0, unsigned int col = 0);
 
+    void set_logger(Logger* new_logger);
     Field* get_result();
 };
 

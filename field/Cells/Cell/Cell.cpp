@@ -44,6 +44,7 @@ nlohmann::json Cell::get_json_repr() const{
     cell_repr["type"] =  "Cell";
     cell_repr["has_entity"] = this->entity != nullptr;
     cell_repr["has_item"] = this->has_item;
+    cell_repr["is_vacant"] = this->vacant;
 
     if (this->entity != nullptr)
     {

@@ -15,7 +15,7 @@
 Field::Field(Player *player, size_t number, pair <unsigned int, unsigned int> player_coords, map<Enemy *,
              pair<unsigned int, unsigned int>> enemies, unsigned int enemies_num,
              map<Item *, pair<unsigned int, unsigned int>> items, Cell ***cells, Cell *enter_cell, Cell *exit_cell,
-             unsigned int rows, unsigned int cols, Logger& logger):
+             unsigned int rows, unsigned int cols, Logger* logger):
              player(player), number(number), player_coords(std::move(player_coords)), enemies(std::move(enemies)),
              enemies_num(enemies_num), items(std::move(items)),
              cells(cells), enter_cell(enter_cell), exit_cell(exit_cell), rows(rows + 2), cols(cols + 2),
@@ -120,13 +120,13 @@ void Field::start() {
 
     for (auto item: items)
     {
-        logger.add_subscriber(item.first);
+        logger->add_subscriber(item.first);
     }                                           // TODO delete
     unsigned i = 0;
     for (auto enemy: enemies)
     {
         if (i == 2) break;
-        logger.add_subscriber(enemy.first);     // TODO delete
+        logger->add_subscriber(enemy.first);     // TODO delete
         ++i;
     }
 }
@@ -136,8 +136,8 @@ void Field::finish() {
 
 void Field::proceed() {
 
-    logger.print_console(player);
-    logger.print_console(player->get_item());
+    logger->print_console(player);
+    logger->print_console(player->get_item());
 
     vector <Enemy*> enemies_erase = {};
 
@@ -160,7 +160,7 @@ void Field::proceed() {
         strategies_manager.step(this, enemy, player);
     }
 
-    logger.proceed();
+    logger->proceed();
 }
 
 const Cell *const Field::get_cell(unsigned int row, unsigned int col) const{
@@ -289,7 +289,7 @@ nlohmann::json Field::get_json_repr() const {
     auto curr_cell = fi.next();
     while (curr_cell)
     {
-            cells_info.push_back(curr_cell->get_json_repr());
+        cells_info.push_back(curr_cell->get_json_repr());
         curr_cell = fi.next();
     }
 

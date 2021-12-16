@@ -8,7 +8,7 @@
 
 class ExitCell : public Cell {
 public:
-    ExitCell(unsigned int x, unsigned int y) : Cell(x, y){};
+    ExitCell(unsigned int x, unsigned int y, bool vacant=true) : Cell(x, y, vacant){};
     ~ExitCell() override = default;
     virtual Cell* clone();
     nlohmann::json get_json_repr() const override;

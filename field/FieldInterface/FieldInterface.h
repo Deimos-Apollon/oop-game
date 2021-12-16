@@ -9,6 +9,7 @@
 #include "../../entities/Creatures/Player/Player.h"
 #include "../../entities/Creatures/Enemies/Enemy/Enemy.h"
 #include "../../Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h"
+#include "../../Game/Logs/Logger/Logger.h"
 
 class FieldInterface : public JSONSaveableInterface{
 public:
@@ -29,6 +30,9 @@ public:
     virtual bool player_stands_on_exit() = 0;
     virtual bool player_is_dead() = 0;
     virtual const Item* const get_players_item() = 0;
+
+    virtual size_t get_number() = 0;
+    virtual void set_logger(Logger* new_logger) = 0;
 };
 
 

@@ -14,7 +14,8 @@ SettingsCLI::SettingsCLI() {
         {ATTACK, 'q'},
         {CHANGE_USING_ITEM, 'u'},
         {SWITCH_ITEM, 'n'},
-        {SAVE_GAME, '['}
+        {SAVE_GAME, '['},
+        {LOAD_GAME, ']'},
     };
 }
 
