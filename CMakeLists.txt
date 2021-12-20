@@ -35,8 +35,8 @@ add_executable(oop_game
         Controller/PlayerControllerInterface/PlayerControllerCLI/PlayerControllerCLI.cpp Controller/PlayerControllerInterface/PlayerControllerCLI/PlayerControllerCLI.h
         Controller/PlayerControllerInterface/PlayerControllerSomeOther/PlayerControllerSomeOther.cpp Controller/PlayerControllerInterface/PlayerControllerSomeOther/PlayerControllerSomeOther.h
         Controller/CommandsCodes/CommandsCodes.h CLI_Interface/CLI_GameMenu/CLI_GameMenuView.cpp CLI_Interface/CLI_GameMenu/CLI_GameMenuView.h GameMenu/GameMenuCLI.cpp GameMenu/GameMenuCLI.h
-        GameMenu/Settings/SettingsInterface.cpp GameMenu/Settings/SettingsInterface.h GameMenu/Settings/SettingsCLI/SettingsCLI.cpp GameMenu/Settings/SettingsCLI/SettingsCLI.h Game/CommandExecutor.cpp
-        Game/CommandExecutor.h Game/GameSerialising/GameSaverLoaderManager/GameSaverLoaderManager.cpp Game/GameSerialising/GameSaverLoaderManager/GameSaverLoaderManager.h
+        GameMenu/Settings/SettingsCLI/SettingsCLI.cpp GameMenu/Settings/SettingsCLI/SettingsCLI.h Game/CommandExecutor.cpp
+        Game/CommandExecutor.h
         Game/GameSerialising/GameSaverLoaderInterface/GameSaverLoaderInterface.cpp Game/GameSerialising/GameSaverLoaderInterface/GameSaverLoaderInterface.h Game/GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.cpp
         Game/GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.h Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.cpp
         Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h)

@@ -18,7 +18,7 @@ template<class ... Rules>
 void Game<Rules...>::proceed() {
     FieldInterface* curr_level;
 
-    for (std::size_t i = 0; i < fields_num; ++i)
+    for (std::size_t i = current_field; i < fields_num; ++i)
     {
         if (need_to_load_new) break;
 
@@ -62,6 +62,7 @@ void Game<Rules...>::proceed() {
 
         };
     }
+    if (!need_to_load_new) this->finish();
 }
 
 template<class ... Rules>
@@ -69,7 +70,7 @@ void Game<Rules...>::finish() {
     if (player->get_curr_hp() != 0)
     {
         std::cout << "Поздравляем, игра пройдена!!!\n";
-    }
+    }  else
     {
         std::cout << "YOU DIED\n";
     }
@@ -124,6 +125,7 @@ player(player)
 {
     fields.push_back(field_to_load);
     ++fields_num;
+    current_field = field_num;
     // TODO FIELD_NUM
 }
 
@@ -144,6 +146,11 @@ void Game<Rules...>::levels_init() {
 
         Field *field = fb.get_result();
         fields.push_back(field);
+        fields_num++;
+    }
+    if (current_field == 1)
+    {
+        fields.insert(fields.begin(), nullptr); // todo refactor
         fields_num++;
     }
     if (current_field != 1) {

@@ -65,113 +65,110 @@ bool GameSaverLoaderJSON::load_game(FieldInterface* &field, Player* &player, con
             {
                 new_cell = new ExitCell(row, col, is_vacant);
             }
-            if (new_cell == nullptr){
-                // delete trash
-                valid = false;
-            } else {
-                if (!entity.is_null()) {
-                    auto entity_type = entity["type"];
-                    if (entity_type == "Player") {
-                        int armor = entity["armor"];
-                        unsigned int curr_hp = entity["curr_hp"];
-                        auto items = entity["items"];
-                        auto max_hp = entity["max_hp"];
-                        new_entity = new Player(max_hp, armor);
-                        new_player = dynamic_cast<Player *>(new_entity);
-                        if (!items.is_null())
+
+            if (!entity.is_null()) {
+                auto entity_type = entity["type"];
+                if (entity_type == "Player") {
+                    int armor = entity["armor"];
+                    unsigned int curr_hp = entity["curr_hp"];
+                    unsigned int damage = entity["base_attack_damage"];
+                    auto items = entity["items"];
+                    auto max_hp = entity["max_hp"];
+                    new_entity = new Player(max_hp, armor, damage);
+                    new_player = dynamic_cast<Player *>(new_entity);
+                    if (!items.is_null())
+                    {
+                        for (auto item: items)
                         {
-                            for (auto item: items)
+                            auto item_type = item["type"];
+                            if (item_type == "RestorationWand")
                             {
-                                auto item_type = item["type"];
-                                if (item_type == "RestorationWand")
-                                {
-                                    unsigned int heal_power = item["heal_power"];
-                                    // unsigned int range = entity["range"];
-                                    unsigned int usages = item["usages"];
-                                    auto new_item = new RestorationWand(heal_power, usages);
-                                    new_player->add_item(new_item);
-                                }
-                                else if (item_type == "Bow")
-                                {
-                                    unsigned int damage = item["damage"];
-                                    unsigned int range = item["range"];
-                                    unsigned int usages = item["usages"];
-                                    auto new_item = new Bow(range, damage, usages);
-                                    new_player->add_item(new_item);
-                                }
+                                unsigned int heal_power = item["heal_power"];
+                                // unsigned int range = entity["range"];
+                                unsigned int usages = item["usages"];
+                                auto new_item = new RestorationWand(heal_power, usages);
+                                new_player->add_item(new_item);
+                            }
+                            else if (item_type == "Bow")
+                            {
+                                unsigned int damage = item["damage"];
+                                unsigned int range = item["range"];
+                                unsigned int usages = item["usages"];
+                                auto new_item = new Bow(range, damage, usages);
+                                new_player->add_item(new_item);
                             }
                         }
+                    }
 
-                        new_cell->set_creature(new_entity);
-                        player_row = row; player_col = col;
-                    }
-                    else if (entity_type == "MageHealer")
-                    {
-                        auto armor = entity["armor"];
-                        auto attack_range = entity["attack_range"];
-                        auto damage = entity["base_attack_damage"];
-                        auto curr_hp = entity["curr_hp"];
-                        auto max_hp = entity["max_hp"];
-                        auto new_enemy = new MageHealer(max_hp,armor,damage, attack_range);
-                        new_cell->set_creature(new_enemy);
-                        enemies.insert({new_enemy, {row, col}});
-                    }
-                    else if (entity_type == "MeleeSkeleton")
-                    {
-                        auto armor = entity["armor"];
-                        auto attack_range = entity["attack_range"];
-                        auto damage = entity["base_attack_damage"];
-                        auto curr_hp = entity["curr_hp"];
-                        auto max_hp = entity["max_hp"];
-                        auto new_enemy = new MeleeSkeleton(max_hp,armor,damage, attack_range);
-                        new_cell->set_creature(new_enemy);
-                        enemies.insert({new_enemy, {row, col}});
-                    }
-                    else if (entity_type == "ArcherSkeleton")
-                    {
-                        auto armor = entity["armor"];
-                        auto attack_range = entity["attack_range"];
-                        auto damage = entity["base_attack_damage"];
-                        auto curr_hp = entity["curr_hp"];
-                        auto max_hp = entity["max_hp"];
-                        auto new_enemy = new ArcherSkeleton(max_hp,armor,damage, attack_range);
-                        new_cell->set_creature(new_enemy);
-                        enemies.insert({new_enemy, {row, col}});;
-                    }
-                    else if (entity_type == "RestorationWand")
-                    {
-                        unsigned int heal_power = entity["heal_power"];
-                        // unsigned int range = entity["range"];
-                        unsigned int usages = entity["usages"];
-                        new_entity = new RestorationWand(heal_power, usages);
-                        new_cell->set_item(new_entity);
-                    }
-                    else if (entity_type == "Bow")
-                    {
-                        unsigned int damage = entity["damage"];
-                        unsigned int range = entity["range"];
-                        unsigned int usages = entity["usages"];
-                        new_entity = new Bow(range, damage, usages);
-                        new_cell->set_item(new_entity);
-                    }
+                    new_cell->set_creature(new_entity);
+                    player_row = row; player_col = col;
                 }
-                cells.push_back(new_cell);
-                ++col;
+                else if (entity_type == "MageHealer")
+                {
+                    auto armor = entity["armor"];
+                    auto attack_range = entity["attack_range"];
+                    auto damage = entity["base_attack_damage"];
+                    auto curr_hp = entity["curr_hp"];
+                    auto max_hp = entity["max_hp"];
+                    auto new_enemy = new MageHealer(max_hp,armor,damage, attack_range);
+                    new_cell->set_creature(new_enemy);
+                    enemies.insert({new_enemy, {row, col}});
+                }
+                else if (entity_type == "MeleeSkeleton")
+                {
+                    auto armor = entity["armor"];
+                    auto attack_range = entity["attack_range"];
+                    auto damage = entity["base_attack_damage"];
+                    auto curr_hp = entity["curr_hp"];
+                    auto max_hp = entity["max_hp"];
+                    auto new_enemy = new MeleeSkeleton(max_hp,armor,damage, attack_range);
+                    new_cell->set_creature(new_enemy);
+                    enemies.insert({new_enemy, {row, col}});
+                }
+                else if (entity_type == "ArcherSkeleton")
+                {
+                    auto armor = entity["armor"];
+                    auto attack_range = entity["attack_range"];
+                    auto damage = entity["base_attack_damage"];
+                    auto curr_hp = entity["curr_hp"];
+                    auto max_hp = entity["max_hp"];
+                    auto new_enemy = new ArcherSkeleton(max_hp,armor,damage, attack_range);
+                    new_cell->set_creature(new_enemy);
+                    enemies.insert({new_enemy, {row, col}});;
+                }
+                else if (entity_type == "RestorationWand")
+                {
+                    unsigned int heal_power = entity["heal_power"];
+                    // unsigned int range = entity["range"];
+                    unsigned int usages = entity["usages"];
+                    new_entity = new RestorationWand(heal_power, usages);
+                    new_cell->set_item(new_entity);
+                }
+                else if (entity_type == "Bow")
+                {
+                    unsigned int damage = entity["damage"];
+                    unsigned int range = entity["range"];
+                    unsigned int usages = entity["usages"];
+                    new_entity = new Bow(range, damage, usages);
+                    new_cell->set_item(new_entity);
+                }
             }
+            cells.push_back(new_cell);
+            ++col;
         }
 
         fb.add_cells(cells, rows, cols);
         fb.add_player(new_player, player_row, player_col);
         fb.add_enemies(enemies);
-        if (valid)
-        {
-            Field* new_field = fb.get_result();
-            field = new_field;
-            player = new_player;
-        }
-    } else valid = false;
+        fb.set_number(number);
+
+        Field* new_field = fb.get_result();
+        field = new_field;
+        player = new_player;
+
+    }
     file.close();
-    return valid;
+    return true;
 }
 
 void GameSaverLoaderJSON::save_game(FieldInterface* field, const string &filename) {
@@ -229,88 +226,118 @@ bool GameSaverLoaderJSON::can_load_file(const std::string& filename) {
                     } else if (type == "ExitCell") {
                         new_cell = new ExitCell(row, col, is_vacant);
                     }
-                    if (new_cell == nullptr) {
-                        // delete trash
-                        valid = false;
-                    } else {
-                        if (!entity.is_null()) {
-                            auto entity_type = entity["type"];
-                            if (entity_type == "Player") {
-                                int armor = entity["armor"];
-                                unsigned int curr_hp = entity["curr_hp"];
-                                auto items = entity["items"];
-                                auto max_hp = entity["max_hp"];
-                                new_entity = new Player(max_hp, armor);
-                                new_player = dynamic_cast<Player *>(new_entity);
-                                if (!items.is_null()) {
-                                    for (auto item: items) {
-                                        auto item_type = item["type"];
-                                        if (item_type == "RestorationWand") {
-                                            unsigned int heal_power = item["heal_power"];
-                                            // unsigned int range = entity["range"];
-                                            unsigned int usages = item["usages"];
-                                            auto new_item = new RestorationWand(heal_power, usages);
-                                            new_player->add_item(new_item);
-                                        } else if (item_type == "Bow") {
-                                            unsigned int damage = item["damage"];
-                                            unsigned int range = item["range"];
-                                            unsigned int usages = item["usages"];
-                                            auto new_item = new Bow(range, damage, usages);
-                                            new_player->add_item(new_item);
-                                        }
+                    else
+                    {
+                        for (auto enemy: enemies)
+                        {
+                            delete enemy.first;
+                        }
+                        for (auto cell: cells)
+                        {
+                            delete cell;
+                        }
+                        return false;
+                    }
+                    if (!entity.is_null()) {
+                        auto entity_type = entity["type"];
+                        if (entity_type == "Player") {
+                            if (new_player != nullptr)
+                            {
+                                return false;
+                            }
+                            int armor = entity["armor"];
+                            unsigned int curr_hp = entity["curr_hp"];
+                            auto items = entity["items"];
+                            auto max_hp = entity["max_hp"];
+                            new_entity = new Player(max_hp, armor);
+                            new_player = dynamic_cast<Player *>(new_entity);
+                            if (!items.is_null()) {
+                                for (auto item: items) {
+                                    auto item_type = item["type"];
+                                    if (item_type == "RestorationWand") {
+                                        unsigned int heal_power = item["heal_power"];
+                                        // unsigned int range = entity["range"];
+                                        unsigned int usages = item["usages"];
+                                        auto new_item = new RestorationWand(heal_power, usages);
+                                        new_player->add_item(new_item);
+                                    } else if (item_type == "Bow") {
+                                        unsigned int damage = item["damage"];
+                                        unsigned int range = item["range"];
+                                        unsigned int usages = item["usages"];
+                                        auto new_item = new Bow(range, damage, usages);
+                                        new_player->add_item(new_item);
                                     }
                                 }
-
-                                new_cell->set_creature(new_entity);
-                                player_row = row;
-                                player_col = col;
-                            } else if (entity_type == "MageHealer") {
-                                auto armor = entity["armor"];
-                                auto attack_range = entity["attack_range"];
-                                auto damage = entity["base_attack_damage"];
-                                auto curr_hp = entity["curr_hp"];
-                                auto max_hp = entity["max_hp"];
-                                auto new_enemy = new MageHealer(max_hp, armor, damage, attack_range);
-                                new_cell->set_creature(new_enemy);
-                                enemies.insert({new_enemy, {row, col}});
-                            } else if (entity_type == "MeleeSkeleton") {
-                                auto armor = entity["armor"];
-                                auto attack_range = entity["attack_range"];
-                                auto damage = entity["base_attack_damage"];
-                                auto curr_hp = entity["curr_hp"];
-                                auto max_hp = entity["max_hp"];
-                                auto new_enemy = new MeleeSkeleton(max_hp, armor, damage, attack_range);
-                                new_cell->set_creature(new_enemy);
-                                enemies.insert({new_enemy, {row, col}});
-                            } else if (entity_type == "ArcherSkeleton") {
-                                auto armor = entity["armor"];
-                                auto attack_range = entity["attack_range"];
-                                auto damage = entity["base_attack_damage"];
-                                auto curr_hp = entity["curr_hp"];
-                                auto max_hp = entity["max_hp"];
-                                auto new_enemy = new ArcherSkeleton(max_hp, armor, damage, attack_range);
-                                new_cell->set_creature(new_enemy);
-                                enemies.insert({new_enemy, {row, col}});;
-                            } else if (entity_type == "RestorationWand") {
-                                unsigned int heal_power = entity["heal_power"];
-                                // unsigned int range = entity["range"];
-                                unsigned int usages = entity["usages"];
-                                new_entity = new RestorationWand(heal_power, usages);
-                                new_cell->set_item(new_entity);
-                            } else if (entity_type == "Bow") {
-                                unsigned int damage = entity["damage"];
-                                unsigned int range = entity["range"];
-                                unsigned int usages = entity["usages"];
-                                new_entity = new Bow(range, damage, usages);
-                                new_cell->set_item(new_entity);
                             }
+
+                            new_cell->set_creature(new_entity);
+                            player_row = row;
+                            player_col = col;
+                        } else if (entity_type == "MageHealer") {
+                            auto armor = entity["armor"];
+                            auto attack_range = entity["attack_range"];
+                            auto damage = entity["base_attack_damage"];
+                            auto curr_hp = entity["curr_hp"];
+                            auto max_hp = entity["max_hp"];
+                            auto new_enemy = new MageHealer(max_hp, armor, damage, attack_range);
+                            new_cell->set_creature(new_enemy);
+                            enemies.insert({new_enemy, {row, col}});
+                        } else if (entity_type == "MeleeSkeleton") {
+                            auto armor = entity["armor"];
+                            auto attack_range = entity["attack_range"];
+                            auto damage = entity["base_attack_damage"];
+                            auto curr_hp = entity["curr_hp"];
+                            auto max_hp = entity["max_hp"];
+                            auto new_enemy = new MeleeSkeleton(max_hp, armor, damage, attack_range);
+                            new_cell->set_creature(new_enemy);
+                            enemies.insert({new_enemy, {row, col}});
+                        } else if (entity_type == "ArcherSkeleton") {
+                            auto armor = entity["armor"];
+                            auto attack_range = entity["attack_range"];
+                            auto damage = entity["base_attack_damage"];
+                            auto curr_hp = entity["curr_hp"];
+                            auto max_hp = entity["max_hp"];
+                            auto new_enemy = new ArcherSkeleton(max_hp, armor, damage, attack_range);
+                            new_cell->set_creature(new_enemy);
+                            enemies.insert({new_enemy, {row, col}});;
+                        } else if (entity_type == "RestorationWand") {
+                            unsigned int heal_power = entity["heal_power"];
+                            // unsigned int range = entity["range"];
+                            unsigned int usages = entity["usages"];
+                            new_entity = new RestorationWand(heal_power, usages);
+                            new_cell->set_item(new_entity);
+                        } else if (entity_type == "Bow") {
+                            unsigned int damage = entity["damage"];
+                            unsigned int range = entity["range"];
+                            unsigned int usages = entity["usages"];
+                            new_entity = new Bow(range, damage, usages);
+                            new_cell->set_item(new_entity);
                         }
-                        cells.push_back(new_cell);
-                        ++col;
+                        else
+                        {
+                            for (auto enemy: enemies)
+                            {
+                                delete enemy.first;
+                            }
+                            for (auto cell: cells)
+                            {
+                                delete cell;
+                            }
+                            return false;
+                        }
                     }
+                    cells.push_back(new_cell);
+                    ++col;
+                }
+                for (auto enemy: enemies)
+                {
+                    delete enemy.first;
+                }
+                for (auto cell: cells)
+                {
+                    delete cell;
                 }
                 if ((row != rows - 1) || (col != cols)) return false;
-
             }
             catch (nlohmann::detail::type_error) {
                 return false;

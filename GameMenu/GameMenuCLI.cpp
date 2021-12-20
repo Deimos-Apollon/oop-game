@@ -24,18 +24,17 @@ void GameMenuCLI::run() {
                     while (game->get_need_to_load_new()) {
                         FieldInterface* loaded_level = nullptr;
                         Player* loaded_player = nullptr;
-                        bool valid = game_saver_loader_json.load_game(loaded_level, loaded_player);
-                        if (valid)
-                        {
-                            size_t current_level = loaded_level->get_number();
+                        game_saver_loader_json.load_game(loaded_level, loaded_player);
 
-                            delete game;
-                            game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
-                                    (loaded_player, loaded_level, current_level);
+                        size_t current_level = loaded_level->get_number();
 
-                            this->game_init();
-                            game->start();
-                        }
+                        delete game;
+                        game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+                                (loaded_player, loaded_level, current_level);
+
+                        this->game_init();
+                        game->start();
+
                     }
                     loop_go = false;
                     break;
@@ -56,20 +55,19 @@ void GameMenuCLI::run() {
                         game->start();
 
                         while (game->get_need_to_load_new()) {
-                            FieldInterface* loaded_level = nullptr;
-                            Player* loaded_player = nullptr;
-                            bool valid = game_saver_loader_json.load_game(loaded_level, loaded_player);
-                            if (valid)
-                            {
-                                size_t current_level = loaded_level->get_number();
+                            loaded_level = nullptr;
+                            loaded_player = nullptr;
+                            game_saver_loader_json.load_game(loaded_level, loaded_player);
 
-                                delete game;
-                                game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
-                                        (loaded_player, loaded_level, current_level);
+                            current_level = loaded_level->get_number();
 
-                                this->game_init();
-                                game->start();
-                            }
+                            delete game;
+                            game = new Game<PickedItem<Bow>, NumberOfEnemiesDeadRules<10>>
+                                    (loaded_player, loaded_level, current_level);
+
+                            this->game_init();
+                            game->start();
+
                         }
                     } else
                     {

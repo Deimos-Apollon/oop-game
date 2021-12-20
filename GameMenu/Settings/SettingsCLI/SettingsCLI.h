@@ -7,11 +7,10 @@
 
 
 #include "../../../Controller/CommandsCodes/CommandsCodes.h"
-#include "../SettingsInterface.h"
 #include <map>
 using namespace  std;
 
-class SettingsCLI : public SettingsInterface {
+class SettingsCLI {
     map<Commands, char> commands_to_keys;
 public:
     SettingsCLI();
