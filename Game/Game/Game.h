@@ -25,10 +25,10 @@ template <class ...Rules>
 class Game{
     Player* player = nullptr;
     PlayerControllerInterface* player_controller = nullptr;
-    bool need_to_load_new = false;
 
     std::vector<FieldInterface*> fields = {};
     size_t current_field = 0;
+    size_t field_prev_number = 0;
     unsigned int fields_num = 0;
 
     std::tuple <Rules...> levels_rules;
@@ -47,12 +47,7 @@ public:
     Game(Player* player, FieldInterface* field_to_load, size_t field_num);
 
     void setPlayerController(PlayerControllerInterface* pc) { player_controller = pc; };
-
-    bool get_need_to_load_new() {return need_to_load_new;}
-    FieldInterface* get_field_to_load() {if (need_to_load_new) return fields[current_field];
-        else return nullptr;}
-    Player* get_player_to_load() {if (need_to_load_new) return player; else return nullptr;};
-
+    void reload();
     void start();
 };
 

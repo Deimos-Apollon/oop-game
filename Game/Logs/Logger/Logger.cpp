@@ -79,4 +79,8 @@ void Logger::write_file(const string &data) {
     }
 }
 
+void Logger::remove_all() {
+    observer.remove_all();
+}
+
 

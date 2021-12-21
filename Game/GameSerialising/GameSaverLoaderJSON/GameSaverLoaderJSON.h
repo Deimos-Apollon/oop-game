@@ -15,7 +15,6 @@ public:
     // TODO разобраться с полями, которвые выводятся и загружаются, разбить функции загрузки чтобы было меньше
     bool load_game(FieldInterface* &field, Player* &player, const std::string& filename = "game_save.json");
     void save_game(FieldInterface *field, const std::string& filename = "game_save.json");
-    bool can_load_file(const std::string& filename = "game_save.json");
 };
 
 #endif //OOP_GAME_GAMESAVERLOADERJSON_H

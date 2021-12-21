@@ -21,8 +21,8 @@ class CommandExecutor {
 public:
     explicit CommandExecutor(Player* player = nullptr, FieldInterface* field = nullptr);
     void execute_command(Commands command);
-    void set_field(FieldInterface* new_field, bool &need_to_load_level);
-    void set_player(Player* new_player);
+    void set_field(FieldInterface* &new_field, bool &need_to_load_level);
+    void set_player(Player* &new_player);
 };
 
 

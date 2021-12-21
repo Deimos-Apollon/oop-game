@@ -6,7 +6,7 @@
 
 void Observer::add_object(const Entity *entity) {
     if (entity != nullptr) {
-        auto player = dynamic_cast<const Player *>(entity);
+        const Player *player = dynamic_cast<const Player *>(entity);
         if (player) {
             add_player(player);
         }
@@ -175,4 +175,8 @@ std::string Observer::check_objects() {
         text += this->check_object(subsriber.first);
     }
     return text;
+}
+
+void Observer::remove_all() {
+    objects_cache.clear();
 }

@@ -37,6 +37,8 @@ public:
 
     void add_subscriber(Entity* ent);
     void remove_subscriber(Entity* ent);
+    void remove_all();
+
     void proceed();
 };
 

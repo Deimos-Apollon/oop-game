@@ -32,6 +32,7 @@ public:
     Observer();
     void add_object(const Entity* entity);
     void remove_object(const Entity* entity);
+    void remove_all();
     std::string check_objects();
 };
 
