@@ -9,7 +9,8 @@
 
 class ArcherSkeleton : public Enemy {
 public:
-    explicit ArcherSkeleton(unsigned int hp = 10, int armor = 0, unsigned int damage = 3, unsigned int attack_range = 5);
+    explicit ArcherSkeleton(unsigned int hp_max = 10, unsigned int hp_curr = 10,
+                            int armor = 0, unsigned int damage = 3, unsigned int attack_range = 5);
     nlohmann::json get_json_repr() const override;
 };
 

@@ -137,7 +137,8 @@ void Game<Rules...>::levels_init() {
         fields.push_back(field);
         fields_num++;
     }
-    if (field_prev_number == 0 && current_field == 0){
+
+    if (field_prev_number == 0 && current_field == 0 && fields_num == 1){
         fb.create_cells(20, 30, 10);
         fb.add_player(player);
         fb.add_Axe();
@@ -156,7 +157,6 @@ void Game<Rules...>::levels_init() {
         fields.push_back(field1);
         fields_num++;
     }
-
 
     if (current_field == 0 and field_prev_number == 0)
     {
@@ -195,25 +195,24 @@ void Game<Rules...>::levels_init() {
         if (fields_num == 2) {
             delete fields[0];
             fields.erase(fields.begin());
+            --fields_num;
         }
     }
-    if (fields_num == 1)
-
-    for (std::size_t i = 0; i < fields_num; ++i)
-    {
-
-        switch(i)                                   // TODO DELETE VERY BAD IT IS INIT
+        for (std::size_t i = 0; i < fields_num; ++i)
         {
-            case 0:
-                std::get<0>(levels_rules).set_field(fields[i]);
-                break;
-            case 1:
-                std::get<1>(levels_rules).set_field(fields[i]);
-                break;
-            default:
-                break;
+
+            switch(i)                                   // TODO DELETE VERY BAD IT IS INIT
+            {
+                case 0:
+                    std::get<0>(levels_rules).set_field(fields[i]);
+                    break;
+                case 1:
+                    std::get<1>(levels_rules).set_field(fields[i]);
+                    break;
+                default:
+                    break;
+            }
         }
-    }
     player_controller->set_player(player);
 }
 

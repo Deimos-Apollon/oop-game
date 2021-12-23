@@ -4,8 +4,9 @@
 
 #include "ArcherSkeleton.h"
 
-ArcherSkeleton::ArcherSkeleton(unsigned int hp, int armor, unsigned int damage, unsigned int attack_range) :
-    Enemy(hp, armor, damage, attack_range) {
+ArcherSkeleton::ArcherSkeleton(unsigned int hp_max, unsigned int hp_curr,
+                               int armor, unsigned int damage, unsigned int attack_range) :
+    Enemy(hp_max, hp_curr, armor, damage, attack_range) {
 
 }
 

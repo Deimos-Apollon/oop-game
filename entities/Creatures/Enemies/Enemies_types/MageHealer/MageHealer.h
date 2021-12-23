@@ -9,7 +9,8 @@
 
 class MageHealer : public Enemy {
 public:
-    explicit MageHealer(unsigned int hp = 15, int armor = 0, unsigned int damage = 3, unsigned int attack_range = 3);
+    explicit MageHealer(unsigned int hp_max = 15, unsigned int hp_curr = 15,
+                        int armor = 0, unsigned int damage = 3, unsigned int attack_range = 3);
     nlohmann::json get_json_repr() const override;
 };
 

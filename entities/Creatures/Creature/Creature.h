@@ -17,7 +17,8 @@ protected:
     int armor = 0;
     unsigned int base_attack_damage = 1;
     unsigned int attack_range = 1;
-    explicit Creature(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 1, unsigned int attack_range = 1);
+    explicit Creature(unsigned int hp_max_p = 0, unsigned int hp_curr_p = 0, int armor_p = 0,
+                      unsigned int base_attack_damage = 1, unsigned int attack_range = 1);
 public:
     ~Creature() override = default;
 

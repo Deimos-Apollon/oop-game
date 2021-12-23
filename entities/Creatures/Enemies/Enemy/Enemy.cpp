@@ -5,8 +5,9 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(unsigned int hp_p, int armor_p, unsigned int base_attack_damage, unsigned int attack_range) :
-Creature(hp_p, armor_p, base_attack_damage, attack_range) {
+Enemy::Enemy(unsigned int hp_max_p, unsigned int hp_curr_p,
+             int armor_p, unsigned int base_attack_damage, unsigned int attack_range) :
+Creature(hp_max_p, hp_curr_p, armor_p, base_attack_damage, attack_range) {
 
 }
 

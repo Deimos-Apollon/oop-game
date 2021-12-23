@@ -39,4 +39,4 @@ add_executable(oop_game
         Game/CommandExecutor.h
         Game/GameSerialising/GameSaverLoaderInterface/GameSaverLoaderInterface.cpp Game/GameSerialising/GameSaverLoaderInterface/GameSaverLoaderInterface.h Game/GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.cpp
         Game/GameSerialising/GameSaverLoaderJSON/GameSaverLoaderJSON.h Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.cpp
-        Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h)
+        Game/GameSerialising/GameSaverLoaderJSON/JSONSaveableInterface/JSONSaveableInterface.h Game/GameSerialising/GameSaverLoaderJSON/GameObjectsJsonCreator.cpp Game/GameSerialising/GameSaverLoaderJSON/GameObjectsJsonCreator.h)

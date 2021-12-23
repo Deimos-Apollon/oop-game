@@ -5,8 +5,10 @@
 #include "Creature.h"
 
 
-Creature::Creature(unsigned int hp_p, int armor_p, unsigned int base_attack_damage, unsigned int attack_range):
-     max_hp(hp_p), curr_hp(hp_p), armor(armor_p), base_attack_damage(base_attack_damage), attack_range(attack_range) {
+Creature::Creature(unsigned int hp_max_p, unsigned int hp_curr_p, int armor_p,
+                   unsigned int base_attack_damage, unsigned int attack_range):
+     max_hp(hp_max_p), curr_hp(hp_curr_p), armor(armor_p),
+     base_attack_damage(base_attack_damage), attack_range(attack_range) {
 
 }
 

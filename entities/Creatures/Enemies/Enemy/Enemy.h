@@ -13,7 +13,8 @@
 class Enemy : public Creature {
     unsigned short step_cooldown = STEP_COOLDOWN;
 public:
-    Enemy(unsigned int hp_p = 0, int armor_p = 0, unsigned int base_attack_damage = 0, unsigned int attack_range = 1);
+    Enemy(unsigned int hp_max_p = 0, unsigned int hp_curr_p = 0, int armor_p = 0,
+          unsigned int base_attack_damage = 0, unsigned int attack_range = 1);
     bool try_do_step();
 };
 
