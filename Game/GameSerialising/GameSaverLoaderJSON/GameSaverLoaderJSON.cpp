@@ -35,11 +35,11 @@ bool GameSaverLoaderJSON::load_game(FieldInterface* &field, Player* &player, con
     file.close();
     if (valid) {
         delete field;
-        auto new_field = gameObjectsJsonCreator.get_field();
-        field = new_field;
+
+        field = gameObjectsJsonCreator.get_field();
 
         player = gameObjectsJsonCreator.get_player();
-        //gameObjectsJsonCreator.refresh();
+        gameObjectsJsonCreator.refresh();
     }
 
     return valid;

@@ -144,21 +144,21 @@ Creature *GameObjectsJsonCreator::create_creature(size_t row, size_t col, nlohma
     }
     else if (entity_type == "ArcherSkeleton")
     {
-        Enemy* new_enemy = new ArcherSkeleton(curr_hp,armor,damage,range);
+        Enemy* new_enemy = new ArcherSkeleton(max_hp, curr_hp,armor,damage,range);
         enemies[new_enemy] = {row, col};
         enemies_num++;
         new_creature = new_enemy;
     }
     else if (entity_type == "MeleeSkeleton")
     {
-        Enemy* new_enemy = new MeleeSkeleton(curr_hp, armor, damage, range);
+        Enemy* new_enemy = new MeleeSkeleton(max_hp, curr_hp, armor, damage, range);
         enemies[new_enemy] = {row, col};
         enemies_num++;
         new_creature = new_enemy;
     }
     else if (entity_type == "MageHealer")
     {
-        Enemy* new_enemy = new MageHealer(curr_hp, armor, damage, range);
+        Enemy* new_enemy = new MageHealer(max_hp, curr_hp, armor, damage, range);
         enemies[new_enemy] = {row, col};
         enemies_num++;
         new_creature = new_enemy;

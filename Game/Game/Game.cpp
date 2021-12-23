@@ -16,34 +16,33 @@ Game<Rules...>::Game(Player *player, std::vector<FieldInterface*> fields, unsign
 
 template<class ... Rules>
 void Game<Rules...>::proceed() {
-    FieldInterface* curr_level;
+
 
     bool need_to_load_new = false;
     for (std::size_t i = 0; i < fields_num; ++i)
     {
         if (need_to_load_new) break;
 
-        curr_level = fields[i];
-        player_controller->set_field(curr_level, need_to_load_new);
+        player_controller->set_field(fields[i], need_to_load_new);
 
-        curr_level->set_logger(&logger);
-        FieldIterator fi(*dynamic_cast<Field *>(curr_level));
+        fields[i]->set_logger(&logger);
+        FieldIterator fi(*dynamic_cast<Field *>(fields[i]));
         FieldView lv(fi);
 
-        curr_level->start();
+        fields[i]->start();
         bool level_stop = false;
-        field_prev_number = curr_level->get_number();
+        field_prev_number = fields[i]->get_number();
         while(!level_stop)
         {
             lv.print();
-            curr_level->proceed();
+            fields[i]->proceed();
             player_controller->proceed();
             if (need_to_load_new)
             {
-                current_field = curr_level->get_number();
+                current_field = fields[i]->get_number();
                 break;
             }
-            if (curr_level->player_stands_on_exit()) {
+            if (fields[i]->player_stands_on_exit()) {
                 switch (i)                                   // TODO DELETE VERY BAD
                 {
                     case 0:
@@ -117,7 +116,7 @@ void Game<Rules...>::levels_init() {
 
     if (player == nullptr)
     {
-        player = new Player(50,2,5);
+        player = new Player(50,50,2,5,2);
     }
     logger.add_subscriber(player);
     FieldBuilder fb;
@@ -187,7 +186,7 @@ void Game<Rules...>::levels_init() {
     {
         if(fields_num == 2) {
             fields.erase(std::next(fields.begin()));
-            fields_num--;
+            --fields_num;
         }
     }
     else // cur = 1 and prev = 1
